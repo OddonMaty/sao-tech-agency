@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Palette mesurée sur les nouveaux logos : vert #2b9374, vert clair #52cba3, marine #0b2b49 ; accent assombri pour un contraste lisible avec le texte blanc */
+@layer base {
+  :root {
+    --background: 209 18% 97%;
+    --foreground: 209 60% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 209 60% 10%;
+    --primary: 209 74% 16%;
+    --primary-foreground: 209 18% 97%;
+    --accent: 163 55% 33%;
+    --accent-foreground: 0 0% 100%;
+    --muted: 209 16% 93%;
+    --muted-foreground: 209 22% 36%;
+    --border: 209 14% 85%;
+    --ring: 163 55% 33%;
+    --brandlight: 160 54% 56%;
+    --radius: 0.75rem;
+  }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-background text-foreground font-sans antialiased; }
+  h1, h2, h3 { @apply font-display; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+}
+
+.hero-progress { animation-name: hero-progress; animation-timing-function: linear; animation-fill-mode: forwards; }
+@keyframes hero-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Espace d'administration : titres en Montserrat (lisibilité tableau de bord) */
+.admin h1, .admin h2, .admin h3, .admin .font-display { font-family: "Montserrat", system-ui, sans-serif; font-weight: 700; letter-spacing: -0.01em; }

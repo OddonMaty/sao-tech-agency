@@ -1,0 +1,6 @@
+<FilesMatch "^(config|lib)(\.sample)?\.php$">
+  Require all denied
+</FilesMatch>
+<FilesMatch "^\.installed$">
+  Require all denied
+</FilesMatch>

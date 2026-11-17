@@ -1,0 +1,726 @@
+{
+ "settings": {
+  "phone": "+243 907 261 113",
+  "whatsapp": "243907261113",
+  "address": "Uvira, Sud-Kivu, RDC",
+  "mapQuery": "Uvira, Sud-Kivu, RDC",
+  "email": "contact@saotechagency.com"
+ },
+ "socials": [
+  {
+   "nom": "Facebook",
+   "url": "https://web.facebook.com/saotechagency/"
+  },
+  {
+   "nom": "Instagram",
+   "url": "https://www.instagram.com/sta_sarl"
+  },
+  {
+   "nom": "LinkedIn",
+   "url": "https://www.linkedin.com/company/102640541/"
+  },
+  {
+   "nom": "TikTok",
+   "url": "https://www.tiktok.com/@sta_sarl"
+  }
+ ],
+ "slides": [
+  {
+   "img": "/img/hero-1.webp",
+   "kicker": "Sao Tech Agency · Uvira, RDC",
+   "titre": "Vous gérez votre métier, nous gérons votre technologie.",
+   "texte": "Image, logiciels et réseaux : une seule agence pour les organisations de toute la RDC.",
+   "lien": "/offres",
+   "label": "Voir les offres"
+  },
+  {
+   "img": "/img/hero-2.webp",
+   "kicker": "Studio · Créer",
+   "titre": "Une image qui se remarque et se retient.",
+   "texte": "Identité visuelle, contenu, photographie et marketing digital.",
+   "lien": "/offres#studio",
+   "label": "Découvrir Studio"
+  },
+  {
+   "img": "/img/hero-3.webp",
+   "kicker": "Développement · Construire",
+   "titre": "Des sites et des applications qui travaillent pour vous.",
+   "texte": "Sites vitrines, boutiques en ligne, applications web et mobiles.",
+   "lien": "/offres#dev",
+   "label": "Découvrir Développement"
+  },
+  {
+   "img": "/img/hero-4.webp",
+   "kicker": "Réseau & Support · Connecter",
+   "titre": "Une technologie qui fonctionne, chaque jour.",
+   "texte": "Réseaux, matériel, maintenance et assistance technique.",
+   "lien": "/offres#reseau",
+   "label": "Découvrir Réseau & Support"
+  }
+ ],
+ "poles": [
+  {
+   "id": "studio",
+   "verbe": "Créer",
+   "nom": "Studio",
+   "img": "/img/digitalhero.webp",
+   "texte": "Identité visuelle, contenu, photographie et marketing digital : une image qui se remarque et se retient.",
+   "services": [
+    "Identité visuelle et logo",
+    "Création de contenu et photographie",
+    "Marketing digital et réseaux sociaux"
+   ]
+  },
+  {
+   "id": "dev",
+   "verbe": "Construire",
+   "nom": "Développement",
+   "img": "/img/devhero.webp",
+   "texte": "Sites, boutiques en ligne, applications web et mobiles, outils sur mesure.",
+   "services": [
+    "Sites vitrines et corporate",
+    "Boutiques en ligne",
+    "Applications web et mobiles"
+   ]
+  },
+  {
+   "id": "reseau",
+   "verbe": "Connecter",
+   "nom": "Réseau & Support",
+   "img": "/img/networkhero.webp",
+   "texte": "Réseaux, matériel et maintenance : ce qui doit fonctionner tous les jours.",
+   "services": [
+    "Installation et câblage réseau",
+    "Maintenance informatique",
+    "Support technique"
+   ]
+  }
+ ],
+ "offres": [
+  {
+   "pole": "dev",
+   "name": "Plan Starter",
+   "price": "80 $",
+   "unit": "/ an",
+   "feats": [
+    "Site vitrine optimisé mobile",
+    "Jusqu'à 3 sections / 1 page",
+    "Design moderne & responsive",
+    "SEO technique léger",
+    "Support standard 6 mois"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "dev",
+   "name": "Plan Pro",
+   "price": "160 $",
+   "unit": "/ an",
+   "feats": [
+    "Site corporate",
+    "Jusqu'à 7 pages",
+    "Design UX/UI avancé",
+    "Marketing & tracking intégré",
+    "Support 12 mois + maintenance basique"
+   ],
+   "badge": "Recommandé"
+  },
+  {
+   "pole": "dev",
+   "name": "Plan Business",
+   "price": "280 $",
+   "unit": "/ an",
+   "feats": [
+    "Site multi-pages professionnel",
+    "10+ pages et gestion de contenu",
+    "Performance & sécurité renforcées",
+    "Intégration CRM & analytics",
+    "Support 12 mois + maintenance avancée"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "dev",
+   "name": "Plan E-commerce",
+   "price": "380 $",
+   "unit": "/ an",
+   "feats": [
+    "Boutique en ligne professionnelle",
+    "Gestion catalogue + 200 produits",
+    "Paiement sécurisé + livraison",
+    "Marketing automation & campagnes",
+    "Support 12 mois + SEO e-commerce"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "dev",
+   "name": "Plan Premium",
+   "price": "650 $",
+   "unit": "/ an",
+   "feats": [
+    "Plateforme sur mesure (web/app)",
+    "Fonctionnalités avancées (API, user flows)",
+    "Design UI/UX personnalisé + tests",
+    "Support 12 mois + maintenance premium",
+    "Reporting mensuel & optimisation continue"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "dev",
+   "name": "Plan Entreprise+",
+   "price": "850 $",
+   "unit": "/ an",
+   "feats": [
+    "Stratégie digitale complète",
+    "Plateforme personnalisée et intégrations",
+    "Scalabilité haute performance",
+    "Support prioritaire & SLA",
+    "Maintenance full scope + audits trimestriels"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "studio",
+   "name": "Pack Basic",
+   "price": "49,97 $",
+   "unit": "/ mois",
+   "feats": [
+    "Logo, flyer & 6 visuels réseaux",
+    "Création comptes FB, IG & Twitter",
+    "Alimentation & gestion des comptes",
+    "Pub Facebook & Instagram (1 semaine)",
+    "Rapport mensuel basique"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "studio",
+   "name": "Pack Rocket",
+   "price": "169,94 $",
+   "unit": "/ 3 mois",
+   "feats": [
+    "Tout le Pack Basic inclus",
+    "Vidéo publicitaire animée",
+    "Webmastering & SEO",
+    "Google Ads (site web ou YouTube)",
+    "Rapport analytique détaillé"
+   ],
+   "badge": "Recommandé"
+  },
+  {
+   "pole": "studio",
+   "name": "Pack Domination",
+   "price": "Sur mesure",
+   "unit": "/ 6 mois",
+   "feats": [
+    "Tout le Pack Rocket inclus",
+    "Stratégie de communication complète",
+    "Gestion multi-canaux (6 réseaux)",
+    "Reporting mensuel + réunions strat.",
+    "Accompagnement personnalisé 6 mois"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "reseau",
+   "name": "Pack Réseau Basique",
+   "price": "150 $",
+   "unit": "/ installation",
+   "feats": [
+    "Installation réseau local (LAN)",
+    "Configuration routeur & switch",
+    "Mise en place Wi-Fi sécurisé",
+    "Documentation technique",
+    "Support 1 mois inclus"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "reseau",
+   "name": "Pack Réseau Pro",
+   "price": "350 $",
+   "unit": "/ installation",
+   "feats": [
+    "Infrastructure réseau complète",
+    "Serveur local + NAS",
+    "Sécurisation pare-feu avancée",
+    "VPN & accès distant sécurisé",
+    "Support 3 mois + maintenance"
+   ],
+   "badge": "Recommandé"
+  },
+  {
+   "pole": "reseau",
+   "name": "Pack IT Entreprise",
+   "price": "700 $",
+   "unit": "/ installation",
+   "feats": [
+    "Infrastructure IT sur mesure",
+    "Déploiement serveur & stockage",
+    "Supervision & monitoring 24/7",
+    "Plan de reprise après sinistre",
+    "Contrat maintenance annuel"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "reseau",
+   "name": "Support Ponctuel",
+   "price": "20 $",
+   "unit": "/ intervention",
+   "feats": [
+    "Dépannage à la demande",
+    "Diagnostic et résolution rapide",
+    "Installation de logiciels",
+    "Nettoyage & optimisation PC",
+    "Délai intervention : 24-48h"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "reseau",
+   "name": "Support Mensuel",
+   "price": "80 $",
+   "unit": "/ mois",
+   "feats": [
+    "Jusqu'à 5 interventions / mois",
+    "Support téléphonique & WhatsApp",
+    "Maintenance préventive mensuelle",
+    "Mises à jour logicielles incluses",
+    "Priorité de traitement"
+   ],
+   "badge": "Recommandé"
+  },
+  {
+   "pole": "reseau",
+   "name": "Support Annuel",
+   "price": "600 $",
+   "unit": "/ an",
+   "feats": [
+    "Interventions illimitées",
+    "Support 7j/7 prioritaire",
+    "Audit trimestriel du parc IT",
+    "Sauvegardes régulières incluses",
+    "Rapport d'activité mensuel"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "conseil",
+   "name": "Session Conseil",
+   "price": "30 $",
+   "unit": "/ séance",
+   "feats": [
+    "Consultation 1h avec un expert",
+    "Analyse de votre situation digitale",
+    "Recommandations personnalisées",
+    "Compte rendu écrit inclus",
+    "1 session de suivi offerte"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "conseil",
+   "name": "Pack Stratégie",
+   "price": "150 $",
+   "unit": "/ projet",
+   "feats": [
+    "Audit digital complet",
+    "Stratégie digitale sur mesure",
+    "Plan d'action 3-6 mois",
+    "Ateliers de travail (3 sessions)",
+    "Suivi mensuel des résultats"
+   ],
+   "badge": "Recommandé"
+  },
+  {
+   "pole": "conseil",
+   "name": "Accompagnement Premium",
+   "price": "400 $",
+   "unit": "/ trimestre",
+   "feats": [
+    "Coach digital dédié",
+    "Stratégie de croissance globale",
+    "Formations équipe incluses",
+    "Veille concurrentielle mensuelle",
+    "Accès prioritaire à nos experts"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "dev",
+   "name": "App Vitrine",
+   "price": "200 $",
+   "unit": "/ an",
+   "feats": [
+    "Application mobile simple",
+    "Android & iOS compatible",
+    "Présentation de vos services",
+    "Formulaire de contact intégré",
+    "Support 3 mois inclus"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "dev",
+   "name": "App Pro",
+   "price": "500 $",
+   "unit": "/ an",
+   "feats": [
+    "Application mobile complète",
+    "Gestion utilisateurs & authentification",
+    "Notifications push incluses",
+    "Back-office d'administration",
+    "Support 6 mois + mises à jour"
+   ],
+   "badge": "Recommandé"
+  },
+  {
+   "pole": "dev",
+   "name": "App Sur Mesure",
+   "price": "900 $",
+   "unit": "/ an",
+   "feats": [
+    "Application complexe multi-fonctions",
+    "Intégration API & paiement mobile",
+    "GPS, caméra, fonctions natives",
+    "Déploiement Play Store & App Store",
+    "Maintenance 12 mois incluse"
+   ],
+   "badge": ""
+  }
+ ],
+ "faq": [
+  {
+   "q": "Quel est le délai moyen de réalisation d'un site web ?",
+   "a": "Selon la complexité, un site vitrine est livré en 1 à 2 semaines, un site corporate en 3 à 4 semaines, et une plateforme e-commerce ou sur mesure en 4 à 8 semaines. Nous respectons toujours les délais convenus."
+  },
+  {
+   "q": "Proposez-vous un suivi après la livraison du projet ?",
+   "a": "Oui, chaque plan inclut une période de support et de maintenance. Selon le forfait choisi, ce support va de 1 mois à 12 mois. Nous proposons également des contrats de maintenance annuels personnalisés."
+  },
+  {
+   "q": "Mes données et celles de mes clients sont-elles sécurisées ?",
+   "a": "Absolument. Nous appliquons les meilleures pratiques de sécurité : certificats SSL, hébergement sécurisé, sauvegardes automatiques et protection contre les attaques. La confidentialité de vos données est une priorité."
+  },
+  {
+   "q": "Comment se passe le paiement pour un projet ?",
+   "a": "Nous fonctionnons en général avec un acompte de 50% au démarrage du projet et le solde à la livraison. Pour les projets importants, un échelonnement en 3 tranches peut être convenu. Nous acceptons les virements, Mobile Money et paiements en USD."
+  },
+  {
+   "q": "Puis-je modifier le contenu de mon site moi-même ?",
+   "a": "Oui ! Pour les projets avec CMS (système de gestion de contenu), nous vous formons à l'utilisation de votre tableau de bord afin que vous puissiez mettre à jour textes, images et pages en totale autonomie."
+  },
+  {
+   "q": "Travaillez-vous avec des clients hors de la RDC ?",
+   "a": "Tout à fait. Nous travaillons avec des clients en RDC, au Burundi, en Tanzanie, au Rwanda et dans plusieurs autres pays africains. Toutes nos collaborations peuvent se faire entièrement à distance via WhatsApp, email et visioconférence."
+  }
+ ],
+ "realisations": [
+  {
+   "nom": "IFFA RDC",
+   "desc": "ONG de Bukavu · formation des femmes et environnement",
+   "livre": "Site web",
+   "logo": "/partners/iffa.webp"
+  },
+  {
+   "nom": "Elite Building & Development",
+   "desc": "Entreprise de construction",
+   "livre": "Site web",
+   "logo": "/partners/ebd.webp"
+  },
+  {
+   "nom": "Mwinda Global",
+   "desc": "Groupe actif dans les 26 provinces de la RDC",
+   "livre": "Marketing, outils logistiques et application mobile",
+   "logo": "/partners/mwinda.webp"
+  }
+ ],
+ "apropos": {
+  "intro": "Sao Tech Agency (STA SARL) est une agence digitale basée à Uvira, dans le Sud-Kivu. Nous accompagnons les entreprises, ONG, coopératives et institutions de la région et de toute la RDC : leur image, leurs outils numériques et leur infrastructure réseau, avec un seul interlocuteur.",
+  "blocs": [
+   {
+    "titre": "Notre mission",
+    "texte": "Intégrer la technologie dans tous les domaines entrepreneuriaux afin de faciliter la gestion, améliorer la performance et stimuler la croissance des entreprises en Afrique."
+   },
+   {
+    "titre": "Notre vision",
+    "texte": "Fournir des services professionnels impeccables et promouvoir l'utilisation stratégique de la technologie afin que nos populations bénéficient pleinement de l'avancée numérique du 21ème siècle."
+   },
+   {
+    "titre": "Notre objectif",
+    "texte": "Développer notre portefeuille clients dans 10 pays francophones et plusieurs pays anglophones d'Afrique de l'Est et Centrale."
+   }
+  ],
+  "principes": [
+   {
+    "titre": "Innovation",
+    "texte": "Des technologies modernes, choisies pour vos usages et non pour la mode."
+   },
+   {
+    "titre": "Engagement",
+    "texte": "Un projet suivi jusqu'au bout : vous savez toujours où il en est."
+   },
+   {
+    "titre": "Performance",
+    "texte": "Des sites rapides, des outils fiables et des réseaux qui tiennent dans la durée."
+   },
+   {
+    "titre": "Excellence",
+    "texte": "Un travail soigné, relu et testé avant chaque livraison."
+   },
+   {
+    "titre": "Impact régional",
+    "texte": "Un numérique qui profite concrètement aux organisations et aux populations de la région."
+   }
+  ],
+  "publics": [
+   {
+    "titre": "Entreprises",
+    "texte": "Site, boutique en ligne, identité visuelle et outils pour vendre et mieux gérer."
+   },
+   {
+    "titre": "ONG et associations",
+    "texte": "Visibilité, crédibilité et supports de communication pour vos programmes."
+   },
+   {
+    "titre": "Coopératives",
+    "texte": "Une présence institutionnelle professionnelle pour présenter votre activité."
+   },
+   {
+    "titre": "Institutions",
+    "texte": "Systèmes, réseaux et support technique fiables au quotidien."
+   }
+  ]
+ },
+ "pourquoi": [
+  {
+   "titre": "Un seul interlocuteur",
+   "texte": "Image, outils et réseau pris en charge par la même équipe, du premier échange au suivi."
+  },
+  {
+   "titre": "Des prix affichés",
+   "texte": "Chaque plan indique son prix et ce qu'il inclut. Pas de mauvaise surprise."
+  },
+  {
+   "titre": "Réponse directe",
+   "texte": "Brief, devis et suivi se font par WhatsApp ou par email, là où vous êtes déjà."
+  },
+  {
+   "titre": "Ancrés à Uvira",
+   "texte": "Une équipe locale qui connaît vos contraintes et travaille pour toute la RDC."
+  }
+ ],
+ "partenaires": [
+  {
+   "nom": "IFFA RDC",
+   "logo": "/partners/iffa.webp",
+   "url": "",
+   "desc": "ONG de Bukavu"
+  },
+  {
+   "nom": "Elite Building & Development",
+   "logo": "/partners/ebd.webp",
+   "url": "",
+   "desc": "Construction"
+  },
+  {
+   "nom": "Mwinda Global Holding",
+   "logo": "/partners/mwinda.webp",
+   "url": "",
+   "desc": "Groupe actif dans les 26 provinces"
+  },
+  {
+   "nom": "Changa-Changa Construction",
+   "logo": "/partners/changa-changa.webp",
+   "url": "",
+   "desc": "Construction"
+  },
+  {
+   "nom": "NAMI Industry",
+   "logo": "/partners/nami.webp",
+   "url": "",
+   "desc": "Industrie"
+  }
+ ],
+ "partenariat": {
+  "intro": "Vous êtes une entreprise, une ONG, un média, un revendeur ou un indépendant ? Construisons ensemble des projets numériques utiles pour la région.",
+  "avantages": [
+   {
+    "titre": "Des projets communs",
+    "texte": "Répondez ensemble à des projets et à des appels d'offres qu'aucun de nous ne pourrait porter seul."
+   },
+   {
+    "titre": "Une offre complète",
+    "texte": "Proposez à vos clients image, outils et réseau grâce à un seul partenaire technique."
+   },
+   {
+    "titre": "Des conditions claires",
+    "texte": "Rôles, prix et délais sont définis ensemble et par écrit avant tout démarrage."
+   },
+   {
+    "titre": "Un interlocuteur dédié",
+    "texte": "Un référent qui connaît votre activité et répond sur WhatsApp ou par email."
+   }
+  ],
+  "types": [
+   {
+    "titre": "Apporteur d'affaires",
+    "texte": "Vous recommandez nos services à votre réseau et nous convenons ensemble des modalités."
+   },
+   {
+    "titre": "Partenaire technique",
+    "texte": "Agence, freelance ou intégrateur : nous collaborons sur des projets complémentaires."
+   },
+   {
+    "titre": "Partenaire institutionnel",
+    "texte": "ONG, coopérative, association ou institution : programmes numériques et formations."
+   },
+   {
+    "titre": "Média et communauté",
+    "texte": "Médias, blogs et communautés : contenus, événements et visibilité croisée."
+   }
+  ],
+  "etapes": [
+   {
+    "titre": "Vous nous écrivez",
+    "texte": "Présentez votre organisation et le type de partenariat qui vous intéresse."
+   },
+   {
+    "titre": "Nous échangeons",
+    "texte": "Un premier échange pour comprendre vos objectifs et définir la forme du partenariat."
+   },
+   {
+    "titre": "Nous formalisons",
+    "texte": "Un accord simple, puis les premiers projets en commun."
+   }
+  ],
+  "faq": [
+   {
+    "q": "Qui peut devenir partenaire ?",
+    "a": "Toute organisation ou personne dont l'activité est complémentaire de la nôtre : entreprises, ONG, coopératives, médias, agences et indépendants."
+   },
+   {
+    "q": "Comment se passe la suite après ma demande ?",
+    "a": "Nous revenons vers vous par email ou WhatsApp pour un premier échange, puis nous précisons ensemble la forme du partenariat."
+   },
+   {
+    "q": "Puis-je proposer mon propre projet ?",
+    "a": "Oui. Décrivez-le dans le formulaire : nous étudions chaque proposition."
+   }
+  ]
+ },
+ "produits": [
+  {
+   "nom": "Facturation",
+   "statut": "En développement",
+   "tagline": "Factures et devis en quelques clics.",
+   "desc": "Créez, envoyez et suivez vos factures et devis, depuis un téléphone ou un ordinateur.",
+   "features": [
+    "Factures et devis en PDF",
+    "Suivi des paiements",
+    "Clients et produits enregistrés"
+   ]
+  },
+  {
+   "nom": "Gestion de clients",
+   "statut": "En développement",
+   "tagline": "Ne perdez plus aucun contact.",
+   "desc": "Un carnet de clients simple pour suivre vos échanges, vos relances et vos ventes.",
+   "features": [
+    "Fiches clients",
+    "Rappels et suivi",
+    "Historique des échanges"
+   ]
+  },
+  {
+   "nom": "Gestion de stock",
+   "statut": "En développement",
+   "tagline": "Sachez toujours ce qu'il vous reste.",
+   "desc": "Suivez vos entrées et sorties de marchandises et recevez une alerte avant la rupture.",
+   "features": [
+    "Entrées et sorties",
+    "Alertes de stock bas",
+    "Rapports simples"
+   ]
+  },
+  {
+   "nom": "Formation en ligne",
+   "statut": "En développement",
+   "tagline": "Apprendre et transmettre, partout.",
+   "desc": "Une plateforme pour publier des cours et suivre la progression des apprenants.",
+   "features": [
+    "Cours en ligne",
+    "Suivi des apprenants",
+    "Accessible sur mobile"
+   ]
+  }
+ ],
+ "blog": {
+  "topics": [
+   {
+    "titre": "Informatique et technologie",
+    "texte": "Guides pratiques, outils et bonnes pratiques expliqués simplement."
+   },
+   {
+    "titre": "Marketing digital",
+    "texte": "Réseaux sociaux, visibilité et conseils pour développer votre activité."
+   },
+   {
+    "titre": "Conseils aux organisations",
+    "texte": "Choisir son site, ses outils et sa sécurité informatique."
+   },
+   {
+    "titre": "Actualités de l'agence",
+    "texte": "Nos projets, nos lancements et les coulisses de Sao Tech Agency."
+   }
+  ]
+ },
+ "seo": {
+  "site": "https://saotechagency.com",
+  "routes": {
+   "/": {
+    "title": "Sao Tech Agency | Agence digitale à Uvira (RDC)",
+    "description": "Sites web, applications, identité visuelle, marketing digital, réseaux et support technique à Uvira et dans toute la RDC. Devis rapide sur WhatsApp."
+   },
+   "/offres": {
+    "title": "Offres et tarifs | Sao Tech Agency",
+    "description": "Plans de site web, e-commerce, marketing digital, réseaux et support technique avec prix affichés. Choisissez votre plan et écrivez-nous sur WhatsApp."
+   },
+   "/realisations": {
+    "title": "Réalisations | Sao Tech Agency",
+    "description": "Projets réalisés pour IFFA RDC, Elite Building & Development et Mwinda Global : sites web, marketing, outils et applications."
+   },
+   "/a-propos": {
+    "title": "À propos | Sao Tech Agency",
+    "description": "Sao Tech Agency, agence digitale basée à Uvira (Sud-Kivu) : mission, vision, principes de travail et équipe."
+   },
+   "/contact": {
+    "title": "Contact et devis | Sao Tech Agency",
+    "description": "Décrivez votre projet et envoyez-le directement sur WhatsApp à l'équipe de Sao Tech Agency, à Uvira (RDC)."
+   },
+   "/produits": {
+    "title": "Produits SaaS de productivité | Sao Tech Agency",
+    "description": "Facturation, clients, stock, formation : les outils de productivité de Sao Tech Agency, en cours de développement. Soyez prévenu du lancement."
+   },
+   "/partenaires": {
+    "title": "Partenaires | Sao Tech Agency",
+    "description": "Devenez partenaire de Sao Tech Agency : apporteur d'affaires, partenaire technique ou institutionnel. Découvrez nos partenaires et faites votre demande."
+   },
+   "/blog": {
+    "title": "Blog | Sao Tech Agency",
+    "description": "Le blog de Sao Tech Agency arrive bientôt : articles sur l'informatique, le marketing digital et les outils pour votre organisation."
+   },
+   "/confidentialite": {
+    "title": "Politique de confidentialité | Sao Tech Agency",
+    "description": "Comment Sao Tech Agency collecte, utilise et protège vos données personnelles, et comment exercer vos droits."
+   },
+   "/cookies": {
+    "title": "Politique des cookies | Sao Tech Agency",
+    "description": "Les cookies et stockages utilisés par le site de Sao Tech Agency, leur finalité et la manière de les gérer."
+   }
+  }
+ }
+}
