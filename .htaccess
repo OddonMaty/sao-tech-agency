@@ -1,0 +1,51 @@
+# Sao Tech Agency — configuration Apache (Hostinger)
+Options -Indexes
+DirectoryIndex index.html index.php
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+# Activez la redirection HTTPS une fois le certificat SSL installé (retirez les # ci-dessous)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# URL propres : /offres sert /offres.html (pages générées pour le référencement)
+RewriteCond %{REQUEST_URI} !^/(api|admin|uploads|live)/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([^/]+)/?$ $1.html [L]
+
+# Toute autre adresse du site est gérée par l'application (page 404 incluse)
+RewriteCond %{REQUEST_URI} !^/(api|admin|uploads|live)/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ /index.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+<FilesMatch "\.(html)$">
+  Header set Cache-Control "no-cache"
+</FilesMatch>
+<FilesMatch "\.(js|css|woff2|webp|png|jpg|jpeg|svg|ico)$">
+  Header set Cache-Control "public, max-age=2592000"
+</FilesMatch>
+<FilesMatch "^(sw\.js|manifest\.webmanifest)$">
+  Header set Cache-Control "no-cache"
+</FilesMatch>
+<FilesMatch "^assets/.*">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+</IfModule>
+
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml application/manifest+json
+</IfModule>
+
+<IfModule mod_mime.c>
+AddType application/manifest+json .webmanifest
+AddType application/javascript .js
+</IfModule>
