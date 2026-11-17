@@ -1,0 +1,39 @@
+name: Build et publication
+
+# main    -> branche « deploy »          (site en ligne)
+# staging -> branche « deploy-staging »  (version de test)
+on:
+  push:
+    branches: [main, staging]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Installer les dépendances
+        run: npm install --no-audit --no-fund
+      - name: Compiler le site et l'administration
+        run: npm run build
+      - name: Publier le dossier dist sur la branche de déploiement
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: ${{ github.ref_name == 'main' && 'deploy' || 'deploy-staging' }}
+          force_orphan: true
+          enable_jekyll: true
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
+          commit_message: "Build ${{ github.sha }}"
