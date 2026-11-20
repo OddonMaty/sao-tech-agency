@@ -1,0 +1,27 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/mcp-server-card/v1.json",
+  "$comment": "Carte au format du brouillon SEP-1649 ; le schéma peut évoluer. Serveur en lecture seule.",
+  "version": "1.0",
+  "protocolVersion": "2025-06-18",
+  "serverInfo": {
+    "name": "sao-tech-agency",
+    "title": "Sao Tech Agency",
+    "version": "1.0.0",
+    "description": "Informations publiques de Sao Tech Agency : services, tarifs, FAQ et contact."
+  },
+  "description": "Serveur MCP en lecture seule de Sao Tech Agency (agence digitale à Uvira, RDC).",
+  "documentationUrl": "https://saotechagency.com/llms.txt",
+  "endpoint": "https://saotechagency.com/api/mcp.php",
+  "transport": {
+    "type": "streamable-http",
+    "endpoint": "/api/mcp.php"
+  },
+  "capabilities": {
+    "tools": {
+      "listChanged": false
+    }
+  },
+  "authentication": {
+    "required": false
+  }
+}

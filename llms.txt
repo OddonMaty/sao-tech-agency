@@ -1,0 +1,29 @@
+# Sao Tech Agency
+
+> Agence digitale basée à Uvira (Sud-Kivu, RDC) : image et marketing (Studio), sites et applications (Développement), réseaux et support technique (Réseau & Support). Prix affichés, devis par email ou WhatsApp.
+> Digital agency based in Uvira (DRC): branding & marketing, web & app development, networking & IT support.
+
+Sao Tech Agency (STA SARL) accompagne les entreprises, ONG, coopératives et institutions de la RDC et de la région. Le site est disponible en français et en anglais. Chaque page existe en Markdown : ajoutez « .md » à son adresse, ou envoyez l'en-tête « Accept: text/markdown ».
+
+## Services et tarifs
+- [Offres et tarifs](https://saotechagency.com/offres.md): Plans de site web, e-commerce, marketing digital, réseaux et support technique avec prix affichés. Choisissez votre plan et écrivez-nous sur WhatsApp.
+- [Produits SaaS de productivité](https://saotechagency.com/produits.md): Facturation, clients, stock, formation : les outils de productivité de Sao Tech Agency, en cours de développement. Soyez prévenu du lancement.
+
+## L'agence
+- [Sao Tech Agency](https://saotechagency.com/index.md): Sites web, applications, identité visuelle, marketing digital, réseaux et support technique à Uvira et dans toute la RDC. Devis rapide sur WhatsApp.
+- [À propos](https://saotechagency.com/a-propos.md): Sao Tech Agency, agence digitale basée à Uvira (Sud-Kivu) : mission, vision, principes de travail et équipe.
+- [Réalisations](https://saotechagency.com/realisations.md): Projets réalisés pour IFFA RDC, Elite Building & Development et Mwinda Global : sites web, marketing, outils et applications.
+- [Partenaires](https://saotechagency.com/partenaires.md): Devenez partenaire de Sao Tech Agency : apporteur d'affaires, partenaire technique ou institutionnel. Découvrez nos partenaires et faites votre demande.
+- [Blog](https://saotechagency.com/blog.md): Le blog de Sao Tech Agency arrive bientôt : articles sur l'informatique, le marketing digital et les outils pour votre organisation.
+
+## Contact
+- [Contact et devis](https://saotechagency.com/contact.md): WhatsApp +243 907 261 113, email contact@saotechagency.com, demande de devis par formulaire
+
+## Informations légales
+- [Conditions d'utilisation](https://saotechagency.com/conditions.md): Conditions d'utilisation du site de Sao Tech Agency : accès, offres et devis, propriété intellectuelle, responsabilité et droit applicable.
+- [Politique de confidentialité](https://saotechagency.com/confidentialite.md): Comment Sao Tech Agency collecte, utilise et protège vos données personnelles, et comment exercer vos droits.
+- [Politique des cookies](https://saotechagency.com/cookies.md): Les cookies et stockages utilisés par le site de Sao Tech Agency, leur finalité et la manière de les gérer.
+
+## Optional
+- [Plan du site](https://saotechagency.com/sitemap.xml): liste de toutes les pages
+- [Serveur MCP en lecture seule](https://saotechagency.com/.well-known/mcp/server-card.json): services, tarifs, FAQ et contact interrogeables par un agent
