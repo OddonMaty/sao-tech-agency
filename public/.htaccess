@@ -19,10 +19,15 @@ RewriteEngine On
 # RewriteCond %{HTTPS} off
 # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-# Adresses courantes en anglais redirigées vers les pages françaises
-RewriteRule ^about/?$ /a-propos [R=301,L]
-RewriteRule ^terms/?$ /conditions [R=301,L]
-RewriteRule ^privacy/?$ /confidentialite [R=301,L]
+# Adresses courantes en anglais servies directement ou redirigées
+RewriteRule ^about/?$ /a-propos.html [L]
+RewriteRule ^terms/?$ /conditions.html [L]
+RewriteRule ^privacy/?$ /confidentialite.html [L]
+RewriteRule ^legal/?$ /conditions.html [L]
+RewriteRule ^services/?$ /offres.html [L]
+RewriteRule ^pricing/?$ /offres.html [L]
+RewriteRule ^portfolio/?$ /realisations.html [L]
+RewriteRule ^partners/?$ /partenaires.html [L]
 
 # Version Markdown servie à la demande (en-tête Accept: text/markdown)
 RewriteCond %{HTTP:Accept} text/markdown [NC]
@@ -57,9 +62,9 @@ Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 <FilesMatch "^assets/.*">
   Header set Cache-Control "public, max-age=31536000, immutable"
 </FilesMatch>
-# Annonce des ressources lisibles par les agents sur la page d'accueil (RFC 8288)
+# Annonce des ressources institutionnelles et lisibles par les agents (RFC 8288)
 <Files "index.html">
-  Header set Link '</index.md>; rel="alternate"; type="text/markdown", </llms.txt>; rel="describedby"; type="text/plain", </sitemap.xml>; rel="sitemap"'
+  Header set Link '</index.md>; rel="alternate"; type="text/markdown", </llms.txt>; rel="describedby"; type="text/plain", </sitemap.xml>; rel="sitemap", </a-propos>; rel="about", </contact>; rel="help", </conditions>; rel="terms-of-service", </confidentialite>; rel="privacy-policy"'
 </Files>
 </IfModule>
 

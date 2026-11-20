@@ -2,22 +2,25 @@ import { useEffect, useState } from "react"
 import { ChevronLeft, ChevronRight, Pause, Play } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { wa } from "@/data/site"
-import { content } from "@/lib/content"
+import { useI18n } from "@/lib/i18n"
 
-const slides = content.slides
 // Durée par diapositive : 5 s + 20 ms par caractère lu, bornée entre 6,5 s et 8,5 s
 const ms = (s: { titre: string; texte: string }) => Math.min(8500, Math.max(6500, 5000 + (s.titre.length + s.texte.length) * 20))
 
 export default function HeroCarousel() {
+  const { content, t } = useI18n()
+  const slides = content.slides
   const [i, setI] = useState(0)
   const [playing, setPlaying] = useState(true)
   const n = slides.length
   const go = (k: number) => setI((k + n) % n)
+
   useEffect(() => {
     if (!playing || n < 2) return
     const t = setTimeout(() => setI((v) => (v + 1) % n), ms(slides[i]))
     return () => clearTimeout(t)
-  }, [i, playing, n])
+  }, [i, playing, n, slides])
+
   return (
     <section aria-roledescription="carrousel" aria-label="Sao Tech Agency" className="relative overflow-hidden bg-primary text-primary-foreground">
       <div className="relative min-h-[420px] md:min-h-[500px]">
@@ -30,7 +33,7 @@ export default function HeroCarousel() {
               {k === 0 ? <h1 className="max-w-3xl text-4xl leading-tight md:text-5xl">{s.titre}</h1> : <h2 className="max-w-3xl text-4xl leading-tight md:text-5xl">{s.titre}</h2>}
               <p className="mt-4 max-w-xl text-lg text-primary-foreground/85">{s.texte}</p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <Button asChild variant="accent" size="lg"><a tabIndex={k === i ? 0 : -1} href={wa("Bonjour, je voudrais parler de mon projet.")}>Parler de mon projet</a></Button>
+                <Button asChild variant="accent" size="lg"><a tabIndex={k === i ? 0 : -1} href={wa("Bonjour, je voudrais parler de mon projet.")}>{t("cta.startProject")}</a></Button>
                 <Button asChild variant="outline" size="lg" className="border-primary-foreground/50 text-primary-foreground hover:bg-primary-foreground hover:text-primary"><a tabIndex={k === i ? 0 : -1} href={s.lien}>{s.label}</a></Button>
               </div>
             </div>

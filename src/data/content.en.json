@@ -1,0 +1,730 @@
+{
+ "settings": {
+  "phone": "+243 907 261 113",
+  "whatsapp": "243907261113",
+  "address": "Uvira, South Kivu, DRC",
+  "mapQuery": "Uvira, South Kivu, DRC",
+  "email": "contact@saotechagency.com"
+ },
+ "socials": [
+  {
+   "nom": "Facebook",
+   "url": "https://web.facebook.com/saotechagency/"
+  },
+  {
+   "nom": "Instagram",
+   "url": "https://www.instagram.com/sta_sarl"
+  },
+  {
+   "nom": "LinkedIn",
+   "url": "https://www.linkedin.com/company/102640541/"
+  },
+  {
+   "nom": "TikTok",
+   "url": "https://www.tiktok.com/@sta_sarl"
+  }
+ ],
+ "slides": [
+  {
+   "img": "/img/hero-1.webp",
+   "kicker": "Sao Tech Agency · Uvira, DRC",
+   "titre": "You run your business, we handle your technology.",
+   "texte": "Branding, software, and networks: a single digital agency for organizations across the DRC.",
+   "lien": "/offres",
+   "label": "View Services"
+  },
+  {
+   "img": "/img/hero-2.webp",
+   "kicker": "Studio · Create",
+   "titre": "Branding that stands out and stays memorable.",
+   "texte": "Visual identity, content creation, photography, and digital marketing.",
+   "lien": "/offres#studio",
+   "label": "Discover Studio"
+  },
+  {
+   "img": "/img/hero-3.webp",
+   "kicker": "Development · Build",
+   "titre": "Websites and applications that work for you.",
+   "texte": "Showcase websites, online stores, web and mobile apps.",
+   "lien": "/offres#dev",
+   "label": "Discover Development"
+  },
+  {
+   "img": "/img/hero-4.webp",
+   "kicker": "Network & Support · Connect",
+   "titre": "Technology that runs smoothly, every day.",
+   "texte": "Networking, hardware, maintenance, and IT assistance.",
+   "lien": "/offres#reseau",
+   "label": "Discover Network & Support"
+  }
+ ],
+ "poles": [
+  {
+   "id": "studio",
+   "verbe": "Create",
+   "nom": "Studio",
+   "img": "/img/digitalhero.webp",
+   "texte": "Visual identity, content, photography, and digital marketing: branding that stands out and gets remembered.",
+   "services": [
+    "Visual identity & logo design",
+    "Content creation & photography",
+    "Digital marketing & social media"
+   ]
+  },
+  {
+   "id": "dev",
+   "verbe": "Build",
+   "nom": "Development",
+   "img": "/img/devhero.webp",
+   "texte": "Websites, online stores, web & mobile applications, custom digital tools.",
+   "services": [
+    "Showcase & corporate websites",
+    "Online stores & e-commerce",
+    "Web and mobile applications"
+   ]
+  },
+  {
+   "id": "reseau",
+   "verbe": "Connect",
+   "nom": "Network & Support",
+   "img": "/img/networkhero.webp",
+   "texte": "Networking, hardware, and maintenance: IT systems that work reliably every single day.",
+   "services": [
+    "LAN cabling & network setup",
+    "Computer hardware maintenance",
+    "Technical support & troubleshooting"
+   ]
+  }
+ ],
+ "offres": [
+  {
+   "pole": "dev",
+   "name": "Starter Plan",
+   "price": "80 $",
+   "unit": "/ year",
+   "feats": [
+    "Mobile-optimized showcase website",
+    "Up to 3 sections / 1 page",
+    "Modern & responsive design",
+    "Light technical SEO",
+    "Standard 6-month support"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "dev",
+   "name": "Pro Plan",
+   "price": "160 $",
+   "unit": "/ year",
+   "feats": [
+    "Corporate multi-page website",
+    "Up to 7 pages",
+    "Advanced UX/UI design",
+    "Integrated marketing & tracking",
+    "12-month support + basic maintenance"
+   ],
+   "badge": "Recommended"
+  },
+  {
+   "pole": "dev",
+   "name": "Business Plan",
+   "price": "280 $",
+   "unit": "/ year",
+   "feats": [
+    "Professional multi-page platform",
+    "10+ pages & content management",
+    "Enhanced speed & security",
+    "CRM & analytics integration",
+    "12-month support + advanced maintenance"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "dev",
+   "name": "E-commerce Plan",
+   "price": "380 $",
+   "unit": "/ year",
+   "feats": [
+    "Professional online store",
+    "Product catalog (200+ items)",
+    "Secure payments & shipping options",
+    "Marketing automation & campaigns",
+    "12-month support + e-commerce SEO"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "dev",
+   "name": "Premium Plan",
+   "price": "650 $",
+   "unit": "/ year",
+   "feats": [
+    "Custom web/app platform",
+    "Advanced features (APIs, custom flows)",
+    "Custom UI/UX design & testing",
+    "12-month support + premium maintenance",
+    "Monthly reporting & ongoing optimization"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "dev",
+   "name": "Enterprise+ Plan",
+   "price": "850 $",
+   "unit": "/ year",
+   "feats": [
+    "Comprehensive digital strategy",
+    "Tailored platform & integrations",
+    "High-performance scalability",
+    "Priority support & SLA guarantee",
+    "Full maintenance + quarterly audits"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "studio",
+   "name": "Basic Pack",
+   "price": "49,97 $",
+   "unit": "/ month",
+   "feats": [
+    "Logo, flyer & 6 social media visuals",
+    "Setup of FB, IG & Twitter pages",
+    "Content posting & account management",
+    "Facebook & Instagram ads (1 week)",
+    "Basic monthly analytics report"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "studio",
+   "name": "Rocket Pack",
+   "price": "169,94 $",
+   "unit": "/ 3 months",
+   "feats": [
+    "Everything in Basic Pack included",
+    "Animated advertising video",
+    "Webmastering & SEO tuning",
+    "Google Ads (Search or YouTube)",
+    "Detailed analytics report"
+   ],
+   "badge": "Recommended"
+  },
+  {
+   "pole": "studio",
+   "name": "Domination Pack",
+   "price": "Custom",
+   "unit": "/ 6 months",
+   "feats": [
+    "Everything in Rocket Pack included",
+    "Complete communication strategy",
+    "Multi-channel management (6 platforms)",
+    "Monthly reporting + strategic meetings",
+    "Dedicated 6-month coaching"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "reseau",
+   "name": "Basic Network Pack",
+   "price": "150 $",
+   "unit": "/ setup",
+   "feats": [
+    "Local area network (LAN) installation",
+    "Router & switch configuration",
+    "Secure Wi-Fi deployment",
+    "Technical documentation",
+    "1-month support included"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "reseau",
+   "name": "Pro Network Pack",
+   "price": "350 $",
+   "unit": "/ setup",
+   "feats": [
+    "Complete network infrastructure",
+    "Local server + NAS storage",
+    "Advanced firewall protection",
+    "VPN & secure remote access",
+    "3-month support + maintenance"
+   ],
+   "badge": "Recommended"
+  },
+  {
+   "pole": "reseau",
+   "name": "Enterprise IT Pack",
+   "price": "700 $",
+   "unit": "/ setup",
+   "feats": [
+    "Custom corporate IT infrastructure",
+    "Server deployment & storage setup",
+    "24/7 supervision & monitoring",
+    "Disaster recovery & backup plan",
+    "Annual maintenance contract"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "reseau",
+   "name": "On-demand Support",
+   "price": "20 $",
+   "unit": "/ intervention",
+   "feats": [
+    "On-demand troubleshooting",
+    "Fast diagnosis & resolution",
+    "Software installation",
+    "PC cleanup & speed optimization",
+    "Response time: 24-48h"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "reseau",
+   "name": "Monthly Support",
+   "price": "80 $",
+   "unit": "/ month",
+   "feats": [
+    "Up to 5 interventions / month",
+    "Phone & WhatsApp assistance",
+    "Monthly preventive maintenance",
+    "Software updates included",
+    "Priority ticket handling"
+   ],
+   "badge": "Recommended"
+  },
+  {
+   "pole": "reseau",
+   "name": "Annual Support",
+   "price": "600 $",
+   "unit": "/ year",
+   "feats": [
+    "Unlimited interventions",
+    "Priority 7/7 assistance",
+    "Quarterly IT equipment audit",
+    "Regular automated backups",
+    "Monthly activity reporting"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "conseil",
+   "name": "Advisory Session",
+   "price": "30 $",
+   "unit": "/ session",
+   "feats": [
+    "1-hour consultation with an expert",
+    "Assessment of your digital setup",
+    "Tailored recommendations",
+    "Written action summary included",
+    "1 free follow-up session"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "conseil",
+   "name": "Strategy Pack",
+   "price": "150 $",
+   "unit": "/ project",
+   "feats": [
+    "Comprehensive digital audit",
+    "Tailored digital roadmap",
+    "3-6 month action plan",
+    "3 working workshop sessions",
+    "Monthly results tracking"
+   ],
+   "badge": "Recommended"
+  },
+  {
+   "pole": "conseil",
+   "name": "Premium Advisory",
+   "price": "400 $",
+   "unit": "/ quarter",
+   "feats": [
+    "Dedicated digital growth coach",
+    "Comprehensive expansion strategy",
+    "Team training sessions included",
+    "Monthly market intelligence",
+    "Priority access to our experts"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "dev",
+   "name": "Showcase App",
+   "price": "200 $",
+   "unit": "/ year",
+   "feats": [
+    "Simple mobile application",
+    "Android & iOS compatible",
+    "Services presentation",
+    "Integrated contact form",
+    "3-month support included"
+   ],
+   "badge": ""
+  },
+  {
+   "pole": "dev",
+   "name": "Pro App",
+   "price": "500 $",
+   "unit": "/ year",
+   "feats": [
+    "Full-featured mobile application",
+    "User accounts & authentication",
+    "Push notifications included",
+    "Administrative back-office",
+    "6-month support + updates"
+   ],
+   "badge": "Recommended"
+  },
+  {
+   "pole": "dev",
+   "name": "Custom App",
+   "price": "900 $",
+   "unit": "/ year",
+   "feats": [
+    "Complex multi-feature app",
+    "API & Mobile Money payments",
+    "GPS, camera & native functions",
+    "Play Store & App Store publishing",
+    "12-month maintenance included"
+   ],
+   "badge": ""
+  }
+ ],
+ "faq": [
+  {
+   "q": "What is the average turnaround time for a website?",
+   "a": "Depending on complexity, a showcase site is delivered in 1 to 2 weeks, a corporate site in 3 to 4 weeks, and an e-commerce or custom platform in 4 to 8 weeks. We always respect agreed deadlines."
+  },
+  {
+   "q": "Do you provide support after project delivery?",
+   "a": "Yes, every plan includes a warranty and support period ranging from 1 to 12 months. We also offer customized annual maintenance contracts."
+  },
+  {
+   "q": "Are my data and my customers' data secure?",
+   "a": "Absolutely. We enforce industry best practices: SSL certificates, hardened hosting, automated backups, and protection against attacks."
+  },
+  {
+   "q": "How does project payment work?",
+   "a": "We generally require a 50% deposit upon kickoff and the remaining balance upon delivery. We accept bank transfers, Mobile Money, and USD payments."
+  },
+  {
+   "q": "Can I edit and update my website myself?",
+   "a": "Yes! For CMS-enabled projects, we train your team to use your intuitive control panel so you can update text, images, and pages independently."
+  },
+  {
+   "q": "Do you work with clients outside the DRC?",
+   "a": "Absolutely. We work with clients across the DRC, Burundi, Tanzania, Rwanda, and several other countries. All collaboration can be conducted remotely via WhatsApp, email, and video calls."
+  }
+ ],
+ "realisations": [
+  {
+   "nom": "IFFA DRC",
+   "desc": "Bukavu NGO · women empowerment and environment",
+   "livre": "Website",
+   "logo": "/partners/iffa.webp"
+  },
+  {
+   "nom": "Elite Building & Development",
+   "desc": "Construction enterprise",
+   "livre": "Corporate website",
+   "logo": "/partners/ebd.webp"
+  },
+  {
+   "nom": "Mwinda Global",
+   "desc": "Conglomerate operating across all 26 provinces of DRC",
+   "livre": "Marketing, logistical software & mobile app",
+   "logo": "/partners/mwinda.webp"
+  }
+ ],
+ "apropos": {
+  "intro": "Sao Tech Agency (STA SARL) is a digital agency based in Uvira, South Kivu. We assist businesses, NGOs, cooperatives, and institutions across the region and all of the DRC: branding, digital tools, and network infrastructure, with a single dedicated team.",
+  "blocs": [
+   {
+    "titre": "Our Mission",
+    "texte": "Integrate technology into every entrepreneurial sphere to streamline management, enhance performance, and drive business growth in Africa."
+   },
+   {
+    "titre": "Our Vision",
+    "texte": "Deliver impeccable professional services and champion strategic technology adoption so that African organizations fully thrive in the 21st-century digital economy."
+   },
+   {
+    "titre": "Our Objective",
+    "texte": "Expand our client base across 10 French-speaking countries and several English-speaking countries in East and Central Africa."
+   }
+  ],
+  "principes": [
+   {
+    "titre": "Innovation",
+    "texte": "Modern technologies, chosen for real business utility, never for fleeting hype."
+   },
+   {
+    "titre": "Commitment",
+    "texte": "End-to-end project tracking: you always know exactly where your project stands."
+   },
+   {
+    "titre": "Performance",
+    "texte": "Fast-loading websites, dependable software, and long-lasting network setups."
+   },
+   {
+    "titre": "Excellence",
+    "texte": "Meticulous work, reviewed and rigorously tested before every deployment."
+   },
+   {
+    "titre": "Regional Impact",
+    "texte": "Digital solutions that deliver concrete value to local organizations and communities."
+   }
+  ],
+  "publics": [
+   {
+    "titre": "Businesses",
+    "texte": "Websites, online stores, brand identity, and software to sell and manage effectively."
+   },
+   {
+    "titre": "NGOs & Non-Profits",
+    "texte": "Visibility, credibility, and communication media for development programs."
+   },
+   {
+    "titre": "Cooperatives",
+    "texte": "Professional institutional presence to showcase your agricultural or trade activities."
+   },
+   {
+    "titre": "Institutions",
+    "texte": "Secure networks, IT infrastructure, and responsive technical support."
+   }
+  ]
+ },
+ "pourquoi": [
+  {
+   "titre": "A Single Point of Contact",
+   "texte": "Branding, software, and networking managed by the same team, from first discovery to ongoing support."
+  },
+  {
+   "titre": "Transparent Pricing",
+   "texte": "Every plan clearly states its price and deliverables. Zero hidden surprises."
+  },
+  {
+   "titre": "Direct Communication",
+   "texte": "Project briefs, quotes, and updates handled directly on WhatsApp or by email, right where you already work."
+  },
+  {
+   "titre": "Anchored in Uvira",
+   "texte": "A local team that understands your business realities, serving clients throughout the DRC and East Africa."
+  }
+ ],
+ "partenaires": [
+  {
+   "nom": "IFFA DRC",
+   "logo": "/partners/iffa.webp",
+   "url": "",
+   "desc": "Bukavu NGO"
+  },
+  {
+   "nom": "Elite Building & Development",
+   "logo": "/partners/ebd.webp",
+   "url": "",
+   "desc": "Construction"
+  },
+  {
+   "nom": "Mwinda Global Holding",
+   "logo": "/partners/mwinda.webp",
+   "url": "https://mwindaglobal.cd/",
+   "desc": "Group active in 26 provinces"
+  },
+  {
+   "nom": "Changa-Changa Construction",
+   "logo": "/partners/changa-changa.webp",
+   "url": "",
+   "desc": "Construction"
+  },
+  {
+   "nom": "NAMI Industry",
+   "logo": "/partners/nami.webp",
+   "url": "",
+   "desc": "Industry"
+  }
+ ],
+ "partenariat": {
+  "intro": "Are you a business, NGO, media outlet, reseller, or independent consultant? Let us build meaningful digital projects together for the region.",
+  "avantages": [
+   {
+    "titre": "Joint Ventures",
+    "texte": "Tackle ambitious tenders and projects together that neither of us could deliver alone."
+   },
+   {
+    "titre": "Complete Offering",
+    "texte": "Offer your clients design, development, and network expertise through a single trusted technical partner."
+   },
+   {
+    "titre": "Clear Terms",
+    "texte": "Roles, pricing, and deadlines are transparently agreed upon in writing before any kickoff."
+   },
+   {
+    "titre": "Dedicated Liaison",
+    "texte": "A dedicated project manager who knows your industry and communicates via WhatsApp or email."
+   }
+  ],
+  "types": [
+   {
+    "titre": "Business Referrer",
+    "texte": "Recommend our services to your network under mutually agreed commission terms."
+   },
+   {
+    "titre": "Technical Partner",
+    "texte": "Agencies, freelancers, and integrators: collaborate on complementary skillsets."
+   },
+   {
+    "titre": "Institutional Partner",
+    "texte": "NGOs, cooperatives, and associations: joint community and digital literacy programs."
+   },
+   {
+    "titre": "Media & Community",
+    "texte": "Media, blogs, and creator communities: editorial content, events, and co-marketing."
+   }
+  ],
+  "etapes": [
+   {
+    "titre": "Get in Touch",
+    "texte": "Tell us about your organization and the kind of partnership you envision."
+   },
+   {
+    "titre": "Discovery Call",
+    "texte": "An initial exchange to align objectives and structure the partnership model."
+   },
+   {
+    "titre": "Formalization & Kickoff",
+    "texte": "A straightforward agreement, followed by our first joint project."
+   }
+  ],
+  "faq": [
+   {
+    "q": "Who can become a partner?",
+    "a": "Any organization or professional whose work complements ours: companies, NGOs, cooperatives, media, agencies, and freelancers."
+   },
+   {
+    "q": "What happens after submitting an inquiry?",
+    "a": "We reach out within 24-48 hours via email or WhatsApp to schedule a discovery conversation."
+   },
+   {
+    "q": "Can I submit my own custom proposal?",
+    "a": "Yes! Describe your idea in the form; we review every thoughtful proposal."
+   }
+  ]
+ },
+ "produits": [
+  {
+   "nom": "Invoicing",
+   "statut": "In Development",
+   "tagline": "Invoices and quotes in a few clicks.",
+   "desc": "Create, send, and track quotes and invoices from your smartphone or computer.",
+   "features": [
+    "PDF invoices & quotes",
+    "Payment tracking",
+    "Customer & product directory"
+   ]
+  },
+  {
+   "nom": "Client CRM",
+   "statut": "In Development",
+   "tagline": "Never lose track of a client again.",
+   "desc": "A lightweight CRM to manage your conversations, follow-ups, and sales pipeline.",
+   "features": [
+    "Client profiles",
+    "Follow-up reminders",
+    "Interaction history"
+   ]
+  },
+  {
+   "nom": "Inventory Management",
+   "statut": "In Development",
+   "tagline": "Always know your exact stock levels.",
+   "desc": "Track incoming and outgoing stock and receive proactive low-inventory alerts.",
+   "features": [
+    "Stock ins & outs",
+    "Low-stock notifications",
+    "Clear visual reports"
+   ]
+  },
+  {
+   "nom": "Online Academy",
+   "statut": "In Development",
+   "tagline": "Teach, train, and learn anywhere.",
+   "desc": "A modern platform to publish online courses and track student progress.",
+   "features": [
+    "Online video courses",
+    "Learner analytics",
+    "Optimized for mobile"
+   ]
+  }
+ ],
+ "blog": {
+  "topics": [
+   {
+    "titre": "IT & Technology",
+    "texte": "Practical guides, tools, and technical best practices explained simply."
+   },
+   {
+    "titre": "Digital Marketing",
+    "texte": "Social media tactics, organic reach, and customer acquisition tips."
+   },
+   {
+    "titre": "Organizational Advice",
+    "texte": "Choosing the right software, modernizing workflows, and securing data."
+   },
+   {
+    "titre": "Agency News",
+    "texte": "Our latest project launches, agency milestones, and team updates."
+   }
+  ]
+ },
+ "seo": {
+  "site": "https://saotechagency.com",
+  "routes": {
+   "/": {
+    "title": "Sao Tech Agency | Digital Agency in Uvira (DRC)",
+    "description": "Websites, apps, visual branding, digital marketing, IT networking and technical support in Uvira and across the DRC. Instant quotes on WhatsApp."
+   },
+   "/offres": {
+    "title": "Services & Pricing | Sao Tech Agency",
+    "description": "Transparent pricing for web design, e-commerce, digital marketing, networking, and technical assistance. Select your plan and chat with us on WhatsApp."
+   },
+   "/realisations": {
+    "title": "Portfolio & Case Studies | Sao Tech Agency",
+    "description": "Projects delivered for IFFA DRC, Elite Building & Development, and Mwinda Global: websites, branding, software, and mobile apps."
+   },
+   "/a-propos": {
+    "title": "About Us | Sao Tech Agency",
+    "description": "Sao Tech Agency, digital agency based in Uvira (South Kivu): mission, vision, core values, and leadership."
+   },
+   "/contact": {
+    "title": "Contact & Free Quote | Sao Tech Agency",
+    "description": "Describe your project brief and message the Sao Tech Agency team directly on WhatsApp in Uvira (DRC)."
+   },
+   "/produits": {
+    "title": "SaaS Productivity Tools | Sao Tech Agency",
+    "description": "Invoicing, CRM, inventory, and online learning: business productivity software by Sao Tech Agency in development. Join the waitlist."
+   },
+   "/partenaires": {
+    "title": "Partnership Programs | Sao Tech Agency",
+    "description": "Partner with Sao Tech Agency: business introducers, technical collaborators, or institutional programs. Discover our network."
+   },
+   "/blog": {
+    "title": "Blog & Insights | Sao Tech Agency",
+    "description": "The Sao Tech Agency blog: practical articles on IT, software, online marketing, and digital transformation."
+   },
+   "/confidentialite": {
+    "title": "Privacy Policy | Sao Tech Agency",
+    "description": "How Sao Tech Agency collects, uses, and safeguards your personal data, and how to exercise your privacy rights."
+   },
+   "/cookies": {
+    "title": "Cookie Policy | Sao Tech Agency",
+    "description": "The cookies and local storage technologies used on the Sao Tech Agency site and how to manage your preferences."
+   },
+   "/conditions": {
+    "title": "Terms of Service | Sao Tech Agency",
+    "description": "Terms and conditions governing the use of the Sao Tech Agency website, services, and digital platforms."
+   }
+  }
+ }
+}
