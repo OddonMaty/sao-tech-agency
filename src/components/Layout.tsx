@@ -44,7 +44,7 @@ export default function Layout({ path, children }: { path: string; children: Rea
         <div className="border-t border-primary-foreground/15">
           <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-2 px-5 py-5 text-center text-xs text-primary-foreground/70 md:flex-row md:gap-6">
             <p>© {new Date().getFullYear()} Sao Tech Agency (STA SARL). Tous droits réservés.</p>
-            <p className="flex gap-5"><a href="/confidentialite" className="hover:text-primary-foreground">Politique de confidentialité</a><a href="/cookies" className="hover:text-primary-foreground">Politique des cookies</a></p>
+            <p className="flex flex-wrap justify-center gap-x-5 gap-y-1"><a href="/conditions" className="hover:text-primary-foreground">Conditions d'utilisation</a><a href="/confidentialite" className="hover:text-primary-foreground">Politique de confidentialité</a><a href="/cookies" className="hover:text-primary-foreground">Politique des cookies</a></p>
           </div>
         </div>
       </footer>

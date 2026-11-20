@@ -68,3 +68,21 @@ export function Cookies() {
     </Page>
   )
 }
+
+export function Conditions() {
+  const s = content.settings
+  const secs: Sec[] = [
+    { t: "Éditeur et objet", p: [`Le site saotechagency.com est édité par Sao Tech Agency (STA SARL), agence digitale basée à ${s.address}. Les présentes conditions encadrent l'utilisation du site : en le consultant, vous les acceptez.`] },
+    { t: "Accès au site", p: ["Le site est accessible gratuitement, sauf frais de connexion à votre charge. Nous faisons le nécessaire pour qu'il soit disponible en continu, sans pouvoir garantir l'absence d'interruptions liées à la maintenance ou à des incidents techniques."] },
+    { t: "Offres, prix et devis", li: ["Les prix affichés sont des prix de départ indicatifs, exprimés en dollars américains.", "Seul un devis accepté par écrit (email ou WhatsApp) engage Sao Tech Agency et le client sur le contenu, le prix et les délais.", "Les formulaires du site ne constituent ni une commande, ni un paiement."] },
+    { t: "Produits en développement", p: ["Les produits présentés dans la rubrique Produits sont en cours de conception. Les fonctionnalités indiquées sont informatives, non contractuelles, et peuvent évoluer ou ne pas être commercialisées."] },
+    { t: "Propriété intellectuelle", p: ["Les textes, images, logos, éléments graphiques et le code du site appartiennent à Sao Tech Agency ou à ses partenaires, et sont protégés. Toute reproduction ou réutilisation sans autorisation écrite est interdite. Les logos de nos clients et partenaires restent la propriété de leurs titulaires."] },
+    { t: "Utilisation conforme", li: ["Ne pas envoyer de messages abusifs, frauduleux ou automatisés en masse.", "Ne pas tenter de perturber le site, d'accéder aux espaces réservés ou de contourner les protections.", "Fournir des informations exactes dans les formulaires."] },
+    { t: "Liens externes", p: ["Le site renvoie vers des services tiers (réseaux sociaux, WhatsApp, cartes). Nous ne contrôlons pas leur contenu et déclinons toute responsabilité à leur sujet."] },
+    { t: "Responsabilité", p: ["Nous apportons le plus grand soin aux informations publiées, sans garantir leur exhaustivité ni leur exactitude permanente. Sao Tech Agency ne peut être tenue responsable des dommages indirects liés à l'utilisation du site."] },
+    { t: "Données personnelles et cookies", p: ["Le traitement de vos données est décrit dans notre politique de confidentialité et notre politique des cookies, accessibles en bas de chaque page."] },
+    { t: "Droit applicable", p: ["Les présentes conditions sont soumises au droit applicable en République démocratique du Congo. En cas de différend, nous privilégions d'abord une solution amiable."] },
+    { t: "Modification des conditions", p: ["Nous pouvons modifier ces conditions à tout moment. La version en vigueur est celle publiée sur cette page, avec sa date de mise à jour."] },
+  ]
+  return <Page titre="Conditions d'utilisation" intro="Ces conditions expliquent les règles d'utilisation du site de Sao Tech Agency, en langage simple." secs={secs} />
+}

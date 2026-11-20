@@ -10,20 +10,23 @@ import Contact from "@/pages/Contact"
 import Produits from "@/pages/Produits"
 import Partenaires from "@/pages/Partenaires"
 import Blog from "@/pages/Blog"
-import { Confidentialite, Cookies } from "@/pages/Legal"
+import { Conditions, Confidentialite, Cookies } from "@/pages/Legal"
+import extra from "@/data/seo-extra.json"
+import { registerWebMcp } from "@/lib/webmcp"
 import NotFound from "@/pages/NotFound"
 
 const pages: Record<string, React.ReactElement> = {
   "/": <Accueil />, "/offres": <Offres />, "/produits": <Produits />, "/realisations": <Realisations />, "/partenaires": <Partenaires />,
-  "/blog": <Blog />, "/a-propos": <APropos />, "/contact": <Contact />, "/confidentialite": <Confidentialite />, "/cookies": <Cookies />,
+  "/blog": <Blog />, "/a-propos": <APropos />, "/contact": <Contact />, "/conditions": <Conditions />, "/confidentialite": <Confidentialite />, "/cookies": <Cookies />,
 }
 type Meta = { title: string; description: string }
 const setMeta = (sel: string, attr: string, val: string) => document.querySelector(sel)?.setAttribute(attr, val)
 
 export default function App() {
+  useEffect(() => { registerWebMcp() }, [])
   const path = usePath().replace(/\/+$/, "") || "/"
   const known = path in pages
-  const routes = content.seo.routes as Record<string, Meta>
+  const routes = { ...extra, ...content.seo.routes } as Record<string, Meta>
   const m = routes[known ? path : "/"]
   useEffect(() => {
     const url = content.seo.site + (path === "/" ? "/" : path)

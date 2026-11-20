@@ -23,7 +23,7 @@ export default function Contact() {
       <PageHero img="/img/hero-contact.webp" kicker="Contact et devis" titre="Parlons de votre projet" texte="Envoyez votre brief par email ou directement sur WhatsApp : nous vous répondons avec un devis."
         btns={[{ label: "Écrire sur WhatsApp", href: wa("Bonjour !") }, { label: "Appeler", href: `tel:${s.phone.replace(/\s/g, "")}`, outline: true }, { label: "Voir la carte", href: "#carte", outline: true }]} />
       <section className="mx-auto grid max-w-6xl gap-10 px-5 py-16 lg:grid-cols-[1.5fr_1fr]">
-        <form ref={form} onSubmit={(e) => { e.preventDefault(); send({ type: "devis", plan, ...f }) }} className="relative overflow-hidden rounded-2xl border bg-card shadow-xl">
+        <form {...({ toolname: "request_quote", tooldescription: "Envoyer une demande de devis à Sao Tech Agency (nom, organisation, email, ville, pôle et description du projet)." } as object)} ref={form} onSubmit={(e) => { e.preventDefault(); send({ type: "devis", plan, ...f }) }} className="relative overflow-hidden rounded-2xl border bg-card shadow-xl">
           <input aria-hidden tabIndex={-1} autoComplete="off" name="website" value={f.website} onChange={set("website")} className="absolute -left-[9999px]" />
           <div className="bg-primary px-6 py-6 text-primary-foreground sm:px-8"><h2 className="text-2xl">Votre brief de projet</h2><p className="mt-1 text-sm text-primary-foreground/80">Quelques lignes suffisent, nous revenons vers vous avec un devis.</p></div>
           <div className="grid gap-5 p-6 sm:p-8">
