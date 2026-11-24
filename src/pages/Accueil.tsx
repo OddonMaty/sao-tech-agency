@@ -1,6 +1,7 @@
 import { ArrowRight, Check, FileText, MessageCircle, PackageCheck, Rocket } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import HeroCarousel from "@/components/HeroCarousel"
+import SocialSection from "@/components/SocialSection"
 import Pourquoi from "@/components/Pourquoi"
 import { wa, poleIcon } from "@/data/site"
 import { useI18n } from "@/lib/i18n"
@@ -110,17 +111,19 @@ export default function Accueil() {
         <Head eyebrow={t("nav.realisations")} titre={lang === "en" ? "They trusted us with their projects" : "Ils nous ont confié leur projet"} />
         <div className="mt-12 grid gap-6 md:grid-cols-3">
           {realisations.slice(0, 3).map((r) => (
-            <a key={r.nom} href="/realisations" className="group rounded-xl border bg-card p-6 transition hover:-translate-y-1 hover:shadow-xl">
+            <a key={r.nom} href={r.url || "/realisations"} {...(r.url ? { target: "_blank", rel: "noopener noreferrer" } : {})} className="group rounded-xl border bg-card p-6 transition hover:-translate-y-1 hover:shadow-xl">
               <div className="flex h-24 items-center rounded-lg bg-muted px-5">
                 {r.logo ? <img src={r.logo} alt={`Logo ${r.nom}`} loading="lazy" className="max-h-16 w-auto object-contain" /> : <span className="font-display text-2xl text-primary">{r.nom}</span>}
               </div>
               <h3 className="mt-5 text-xl">{r.nom}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{r.livre}</p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent group-hover:gap-2">{t("cta.seeDetails")} <ArrowRight className="h-4 w-4" /></span>
+              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent group-hover:gap-2">{r.url ? (lang === "en" ? "Visit the project" : "Visiter le projet") : t("cta.seeDetails")} <ArrowRight className="h-4 w-4" /></span>
             </a>
           ))}
         </div>
       </section>
+
+      <SocialSection />
 
       <section className="relative overflow-hidden text-primary-foreground">
         <img src="/img/cta.webp" alt="" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />

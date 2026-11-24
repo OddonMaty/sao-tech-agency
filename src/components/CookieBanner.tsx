@@ -33,6 +33,7 @@ export default function CookieBanner() {
           } catch {
             /* ignore */
           }
+          window.dispatchEvent(new Event("sta-cookies"))
           setShow(false)
         }}
       >

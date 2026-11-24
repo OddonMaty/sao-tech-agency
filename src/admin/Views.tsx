@@ -8,6 +8,7 @@ import { upload } from "./ListEditor"
 export const TYPES: Record<string, { l: string; cls: string }> = {
   devis: { l: "Devis", cls: "bg-emerald-100 text-emerald-800" }, partenariat: { l: "Partenariat", cls: "bg-indigo-100 text-indigo-800" },
   contact: { l: "Contact", cls: "bg-sky-100 text-sky-800" }, produit: { l: "Liste d'attente", cls: "bg-amber-100 text-amber-800" },
+  newsletter: { l: "Newsletter", cls: "bg-rose-100 text-rose-800" },
 }
 const ST: Record<string, string> = { new: "Nouvelle", done: "Traitée", archived: "Archivée" }
 const when = (s: string) => new Date(s.replace(" ", "T")).toLocaleString("fr-FR", { dateStyle: "medium", timeStyle: "short" })
@@ -19,7 +20,7 @@ export function Dashboard() {
   useEffect(() => { api("admin.php?a=stats").then(setS).catch(() => {}) }, [])
   if (!s) return <p className="text-muted-foreground">Chargement…</p>
   const max = Math.max(1, ...s.days.map((d: any) => d.n))
-  const tiles = [[Inbox, "Nouvelles demandes", s.new, "from-accent to-emerald-700"], [FileText, "Devis", s.devis, "from-sky-500 to-sky-700"], [Handshake, "Partenariats", s.partenariat, "from-indigo-500 to-indigo-700"], [Package, "Liste d'attente produits", s.produit, "from-amber-500 to-amber-700"], [Mail, "Messages de contact", s.contact, "from-slate-500 to-slate-700"], [Users, "Total des demandes", s.total, "from-primary to-slate-800"]] as const
+  const tiles = [[Inbox, "Nouvelles demandes", s.new, "from-accent to-emerald-700"], [FileText, "Devis", s.devis, "from-sky-500 to-sky-700"], [Handshake, "Partenariats", s.partenariat, "from-indigo-500 to-indigo-700"], [Package, "Liste d'attente produits", s.produit, "from-amber-500 to-amber-700"], [Mail, "Messages de contact", s.contact, "from-slate-500 to-slate-700"], [Users, "Abonnés newsletter", s.newsletter ?? 0, "from-rose-500 to-rose-700"]] as const
   return (
     <div className="space-y-6">
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
@@ -55,6 +56,7 @@ export function Requests({ onChange }: { onChange: () => void }) {
     <div className="space-y-5">
       <div className="flex flex-wrap gap-2">{pill("", type, setType, "Tous types")}{Object.entries(TYPES).map(([k, v]) => pill(k, type, setType, v.l))}</div>
       <div className="flex flex-wrap gap-2">{pill("", status, setStatus, "Tous statuts")}{Object.entries(ST).map(([k, l]) => pill(k, status, setStatus, l))}</div>
+      {type === "newsletter" && items.length > 0 && <Card className="flex flex-wrap items-center justify-between gap-3"><p className="text-sm text-muted-foreground">{items.length} abonné(s). Exportez la liste pour l'utiliser dans votre outil d'envoi d'emails (Brevo, Mailchimp, votre messagerie…).</p><Button variant="accent" onClick={() => { const csv = "email,date_inscription\n" + items.map((r) => `${r.email},${r.created_at}`).join("\n"); const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["\ufeff" + csv], { type: "text/csv;charset=utf-8" })); a.download = "abonnes-newsletter.csv"; a.click() }}><Download className="h-4 w-4" />Exporter les emails (CSV)</Button></Card>}
       {loading && <p className="text-muted-foreground">Chargement…</p>}
       {!loading && items.length === 0 && <Card className="py-12 text-center text-muted-foreground"><Inbox className="mx-auto mb-3 h-10 w-10 opacity-40" />Aucune demande ne correspond.</Card>}
       <ul className="space-y-3">
@@ -106,11 +108,20 @@ export function Media() {
 
 const b64u = (s: string) => { const p = "=".repeat((4 - (s.length % 4)) % 4); const r = atob((s + p).replace(/-/g, "+").replace(/_/g, "/")); return Uint8Array.from(r, (c) => c.charCodeAt(0)) }
 
+const deviceName = (ua: string) => {
+  const os = /Android/i.test(ua) ? "Android" : /iPhone|iPad/i.test(ua) ? "iPhone / iPad" : /Windows/i.test(ua) ? "Windows" : /Mac OS/i.test(ua) ? "Mac" : /Linux/i.test(ua) ? "Linux" : "Appareil"
+  const br = /SamsungBrowser/i.test(ua) ? "Samsung Internet" : /Edg\//i.test(ua) ? "Edge" : /Firefox/i.test(ua) ? "Firefox" : /Chrome/i.test(ua) ? "Chrome" : /Safari/i.test(ua) ? "Safari" : ""
+  return br ? `${os} · ${br}` : os
+}
+const explain = (code: number) => code >= 200 && code < 300 ? "Accepté : la notification est partie vers l'appareil." : code === 404 || code === 410 ? "Abonnement expiré : il a été retiré. Réactivez les notifications sur cet appareil." : code === 401 || code === 403 ? "Refusé par le service de notification (clé d'authentification)." : code === 0 ? "Aucune réponse du service de notification." : code === 429 || code >= 500 ? "Service de notification saturé ou indisponible, réessayez." : `Refusé (code ${code}).`
+
 export function Settings({ user, onLogout, install, restored }: { user: any; onLogout: () => void; install: (() => void) | null; restored: () => void }) {
-  const [msg, setMsg] = useState(""); const [on, setOn] = useState(false); const [hist, setHist] = useState<any[]>([])
+  const [msg, setMsg] = useState(""); const [on, setOn] = useState(false); const [hist, setHist] = useState<any[]>([]); const [devices, setDevices] = useState<any[]>([]); const [results, setResults] = useState<any[] | null>(null)
+  const loadDevices = () => api("admin.php?a=push_status").then((r) => setDevices(r.devices)).catch(() => {})
   const supported = "serviceWorker" in navigator && "PushManager" in window && "Notification" in window
   useEffect(() => {
     api("admin.php?a=content_history").then((r) => setHist(r.items)).catch(() => {})
+    loadDevices()
     if (supported && !import.meta.env.DEV) navigator.serviceWorker.ready.then((r) => r.pushManager.getSubscription()).then((s) => setOn(!!s)).catch(() => {})
   }, [])
   const enable = async () => {
@@ -119,7 +130,7 @@ export function Settings({ user, onLogout, install, restored }: { user: any; onL
       if ((await Notification.requestPermission()) !== "granted") throw new Error("Autorisation refusée.")
       const reg = await navigator.serviceWorker.ready; const { key } = await api("admin.php?a=push_key")
       const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64u(key) as BufferSource })
-      await api("admin.php?a=push_subscribe", { subscription: sub.toJSON() }); setOn(true); setMsg("Notifications activées sur cet appareil.")
+      await api("admin.php?a=push_subscribe", { subscription: sub.toJSON() }); setOn(true); loadDevices(); setMsg("Notifications activées sur cet appareil.")
     } catch (e) { setMsg((e as Error).message) }
   }
   const disable = async () => { try { const reg = await navigator.serviceWorker.ready; const s = await reg.pushManager.getSubscription(); if (s) { await api("admin.php?a=push_unsubscribe", { endpoint: s.endpoint }); await s.unsubscribe() } setOn(false); setMsg("Notifications désactivées sur cet appareil.") } catch (e) { setMsg((e as Error).message) } }
@@ -129,8 +140,14 @@ export function Settings({ user, onLogout, install, restored }: { user: any; onL
         <p className="mt-2 text-sm text-muted-foreground">Recevez une notification sur cet appareil à chaque nouvelle demande de devis ou de partenariat. Activez-les sur chaque appareil (ordinateur, téléphone).</p>
         {!supported && <p className="mt-3 rounded-lg bg-amber-50 p-3 text-sm text-amber-900">Ce navigateur ne gère pas les notifications. Sur iPhone, installez d'abord l'application (Partager, puis « Sur l'écran d'accueil »).</p>}
         <div className="mt-4 flex flex-wrap gap-2">{on ? <Button variant="outline" onClick={disable}><BellOff className="h-4 w-4" />Désactiver</Button> : <Button variant="accent" disabled={!supported} onClick={enable}><Bell className="h-4 w-4" />Activer sur cet appareil</Button>}
-          <Button variant="outline" onClick={async () => { try { const r = await api("admin.php?a=push_test", {}); setMsg(r.sent ? `Notification envoyée à ${r.sent} appareil(s).` : "Aucun appareil abonné ou envoi refusé.") } catch (e) { setMsg((e as Error).message) } }}><Send className="h-4 w-4" />Envoyer un test</Button></div>
-        {msg && <p role="status" className="mt-3 text-sm font-semibold text-accent">{msg}</p>}</Card>
+          <Button variant="outline" onClick={async () => { try { const r = await api("admin.php?a=push_test", {}); setResults(r.devices); loadDevices(); setMsg(r.devices.length === 0 ? "Aucun appareil abonné : activez les notifications sur chaque appareil." : `${r.sent} appareil(s) sur ${r.devices.length} ont accepté la notification.`) } catch (e) { setMsg((e as Error).message) } }}><Send className="h-4 w-4" />Envoyer un test</Button></div>
+        {msg && <p role="status" className="mt-3 text-sm font-semibold text-accent">{msg}</p>}
+        <h3 className="mt-6 text-sm font-bold">Appareils abonnés ({devices.length})</h3>
+        {devices.length === 0 && <p className="mt-2 text-sm text-muted-foreground">Aucun appareil. Ouvrez cette page depuis votre téléphone installé puis cliquez « Activer sur cet appareil ».</p>}
+        <ul className="mt-2 divide-y rounded-xl border text-sm">{devices.map((d) => { const r = results?.find((x) => x.id === d.id); return <li key={d.id} className="flex flex-wrap items-start justify-between gap-2 p-3"><span><strong>{deviceName(d.ua)}</strong><br /><span className="text-xs text-muted-foreground">{d.host} · activé le {when(d.created)}</span>{r && <><br /><span className={`text-xs font-semibold ${r.ok ? "text-emerald-700" : "text-red-700"}`}>{explain(r.code)}</span></>}</span><button className="rounded-lg p-2 text-red-600 hover:bg-red-50" aria-label="Retirer cet appareil" onClick={async () => { await api("admin.php?a=push_remove", { id: d.id }); loadDevices() }}><Trash2 className="h-4 w-4" /></button></li> })}</ul>
+        <details className="mt-4 rounded-xl border bg-muted/40 p-3 text-sm"><summary className="cursor-pointer font-semibold">La notification n'apparaît pas sur le téléphone ?</summary>
+          <ol className="mt-2 list-decimal space-y-1 pl-5 text-muted-foreground"><li>Activez les notifications <strong>dans l'application installée</strong> (pas dans une page du navigateur), puis cliquez « Envoyer un test » : le résultat s'affiche ci-dessus.</li><li>Réglages Android, Applications, « Sao Tech Agency » (ou STA Admin), Notifications : tout doit être autorisé.</li><li>Réglages Android, Batterie : choisissez « Sans restriction » pour cette application et pour Chrome.</li><li>Désactivez le mode Ne pas déranger et l'économiseur de données pendant le test.</li><li>Si le test affiche « Accepté » mais que rien n'apparaît, les réglages 2 à 4 sont en cause ; sinon, retirez l'appareil et réactivez.</li></ol>
+          <p className="mt-2 text-muted-foreground">Pastille sur l'icône : sur Android, le lanceur affiche le nombre de notifications non lues (selon la marque du téléphone, un simple point). Sur ordinateur, le nombre de demandes à traiter s'affiche sur l'icône de l'application.</p></details></Card>
       <Card><h2 className="flex items-center gap-2 text-lg font-bold"><Smartphone className="h-5 w-5 text-accent" />Installer l'application</h2>
         <p className="mt-2 text-sm text-muted-foreground">Installez ce tableau de bord comme une application, sur ordinateur ou téléphone.</p>
         <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-muted-foreground"><li>Chrome / Edge : bouton ci-dessous ou icône d'installation dans la barre d'adresse.</li><li>Android : menu du navigateur, « Installer l'application ».</li><li>iPhone : Safari, Partager, « Sur l'écran d'accueil ».</li></ul>

@@ -4,7 +4,7 @@ require_once __DIR__ . '/lib.php';
 $me = admin();
 $a = $_GET['a'] ?? '';
 $B = base_dir();
-$writes = ['request_update', 'request_delete', 'content_save', 'content_restore', 'upload', 'media_delete', 'push_subscribe', 'push_unsubscribe', 'push_test'];
+$writes = ['request_update', 'request_delete', 'content_save', 'content_restore', 'upload', 'media_delete', 'push_subscribe', 'push_unsubscribe', 'push_test', 'push_remove'];
 if (in_array($a, $writes, true)) guard_post();
 
 function publish_content(string $json, string $email): void {
@@ -22,13 +22,13 @@ switch ($a) {
     $c = fn(string $w, array $p = []) => (function () use ($w, $p) { $s = db()->prepare("SELECT COUNT(*) FROM requests WHERE $w"); $s->execute($p); return (int)$s->fetchColumn(); })();
     $days = [];
     for ($i = 13; $i >= 0; $i--) { $d = date('Y-m-d', time() - $i * 86400); $days[] = ['d' => $d, 'n' => $c('created_at>=? AND created_at<?', [$d . ' 00:00:00', date('Y-m-d', strtotime($d . ' +1 day')) . ' 00:00:00'])]; }
-    out(['new' => $c("status='new'"), 'total' => $c('1=1'), 'devis' => $c("type='devis'"), 'partenariat' => $c("type='partenariat'"), 'contact' => $c("type='contact'"), 'produit' => $c("type='produit'"),
+    out(['new' => $c("status='new'"), 'total' => $c('1=1'), 'devis' => $c("type='devis'"), 'partenariat' => $c("type='partenariat'"), 'contact' => $c("type='contact'"), 'newsletter' => $c("type='newsletter'"), 'produit' => $c("type='produit'"),
       'days' => $days, 'last' => db()->query('SELECT id,type,name,status,created_at FROM requests ORDER BY id DESC LIMIT 6')->fetchAll()]);
   case 'requests':
     $w = ['1=1']; $p = [];
-    if (in_array($_GET['type'] ?? '', ['devis', 'partenariat', 'contact', 'produit'], true)) { $w[] = 'type=?'; $p[] = $_GET['type']; }
+    if (in_array($_GET['type'] ?? '', ['devis', 'partenariat', 'contact', 'produit', 'newsletter'], true)) { $w[] = 'type=?'; $p[] = $_GET['type']; }
     if (in_array($_GET['status'] ?? '', ['new', 'done', 'archived'], true)) { $w[] = 'status=?'; $p[] = $_GET['status']; }
-    $s = db()->prepare('SELECT * FROM requests WHERE ' . implode(' AND ', $w) . ' ORDER BY id DESC LIMIT 200'); $s->execute($p);
+    $s = db()->prepare('SELECT * FROM requests WHERE ' . implode(' AND ', $w) . ' ORDER BY id DESC LIMIT ' . (($_GET['type'] ?? '') === 'newsletter' ? 5000 : 200)); $s->execute($p);
     out(['items' => $s->fetchAll()]);
   case 'request_update':
     $b = body(); $st = $b['status'] ?? null;
@@ -70,12 +70,18 @@ switch ($a) {
   case 'push_subscribe':
     $e = (string)(body()['subscription']['endpoint'] ?? '');
     if (!str_starts_with($e, 'https://')) out(['error' => 'abonnement invalide'], 422);
+    ensure_schema();
     $h = hash('sha256', $e); db()->prepare('DELETE FROM push_subs WHERE endpoint_hash=?')->execute([$h]);
-    db()->prepare('INSERT INTO push_subs (endpoint,endpoint_hash,email,created_at) VALUES (?,?,?,?)')->execute([$e, $h, $me['email'], date('Y-m-d H:i:s')]);
+    db()->prepare('INSERT INTO push_subs (endpoint,endpoint_hash,email,created_at,ua) VALUES (?,?,?,?,?)')->execute([$e, $h, $me['email'], date('Y-m-d H:i:s'), mb_substr((string)($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 255)]);
     out(['ok' => true]);
+  case 'push_status':
+    ensure_schema();
+    out(['devices' => array_map(fn($r) => ['id' => (int)$r['id'], 'host' => parse_url($r['endpoint'], PHP_URL_HOST), 'ua' => (string)($r['ua'] ?? ''), 'created' => $r['created_at']], db()->query('SELECT id, endpoint, ua, created_at FROM push_subs ORDER BY id')->fetchAll())]);
+  case 'push_remove':
+    db()->prepare('DELETE FROM push_subs WHERE id=?')->execute([(int)(body()['id'] ?? 0)]); out(['ok' => true]);
   case 'push_unsubscribe':
     db()->prepare('DELETE FROM push_subs WHERE endpoint_hash=?')->execute([hash('sha256', (string)(body()['endpoint'] ?? ''))]); out(['ok' => true]);
-  case 'push_test': out(['sent' => push_all()]);
+  case 'push_test': $res = push_results(); out(['sent' => count(array_filter($res, fn($r) => $r['ok'])), 'devices' => $res]);
   case 'latest':
     $r = db()->query("SELECT type,name FROM requests WHERE status='new' ORDER BY id DESC LIMIT 1")->fetch();
     out(['new' => (int)db()->query("SELECT COUNT(*) FROM requests WHERE status='new'")->fetchColumn(), 'last' => $r ?: null]);

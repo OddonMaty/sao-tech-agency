@@ -47,7 +47,7 @@ export default function ListEditor({ items, set, fields, blank, titleKey, label 
                   <label className="mb-1 block text-xs font-semibold text-muted-foreground">{f.l}{f.t === "lines" ? " (une par ligne)" : ""}</label>
                   {f.t === "area" && <Textarea value={v} onChange={(e) => up(i, f.k, e.target.value)} />}
                   {f.t === "lines" && <Textarea value={Array.isArray(v) ? v.join("\n") : v} onChange={(e) => up(i, f.k, e.target.value.split("\n"))} />}
-                  {f.t === "select" && <Select value={v} onChange={(e) => up(i, f.k, e.target.value)}>{f.o!.map((o) => <option key={o}>{o}</option>)}</Select>}
+                  {f.t === "select" && <Select value={v} onChange={(e) => up(i, f.k, e.target.value)}>{f.o!.map((o) => <option key={o} value={o}>{o || "(automatique)"}</option>)}</Select>}
                   {f.t === "img" && <ImgField v={v} onChange={(s) => up(i, f.k, s)} />}
                   {!f.t && <Input value={v} onChange={(e) => up(i, f.k, e.target.value)} />}
                 </div>

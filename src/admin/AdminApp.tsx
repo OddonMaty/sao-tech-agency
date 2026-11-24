@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { BookOpen, Boxes, Briefcase, Menu, Bell, Download, ExternalLink, FileText, Handshake, HelpCircle, Image as Img, Inbox, Info, Layers, LayoutDashboard, LogOut, Save, Search, Settings2, Images, Star, Tag, Undo2, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { api, AuthError } from "./api"
+import { defaultsEn } from "@/lib/content"
 import Editor, { sections } from "./Editors"
 import { Dashboard, Media, Requests, Settings } from "./Views"
 
@@ -50,13 +51,23 @@ function Shell({ user, onLogout }: { user: any; onLogout: () => void }) {
   const route = useHash(); const [open, setOpen] = useState(false)
   const [c, setC] = useState<any>(null); const saved = useRef(""); const [toast, setToast] = useState(""); const [newCount, setNewCount] = useState(0)
   const [prompt, setPrompt] = useState<any>(null)
+  const [lang, setLang] = useState<"fr" | "en">("fr")
   const loadContent = useCallback(() => api("admin.php?a=content_get").then((r) => { setC(r.content); saved.current = JSON.stringify(r.content) }).catch(() => setToast("Impossible de charger le contenu.")), [])
   const poll = useCallback(() => api("admin.php?a=latest").then((r) => setNewCount(r.new)).catch(() => {}), [])
   useEffect(() => { loadContent(); poll(); const t = setInterval(poll, 45000); const bip = (e: any) => { e.preventDefault(); setPrompt(e) }; addEventListener("beforeinstallprompt", bip); return () => { clearInterval(t); removeEventListener("beforeinstallprompt", bip) } }, [])
   useEffect(() => { document.title = (newCount ? `(${newCount}) ` : "") + "Administration · Sao Tech Agency" }, [newCount])
+  const tree = c === null ? null : lang === "fr" ? c : (c.en ?? JSON.parse(JSON.stringify(defaultsEn)))
+  const setTree = (t: any) => (lang === "fr" ? setC(t) : setC({ ...c, en: t }))
   const dirty = c !== null && JSON.stringify(c) !== saved.current
   useEffect(() => { const f = (e: BeforeUnloadEvent) => { if (dirty) e.preventDefault() }; addEventListener("beforeunload", f); return () => removeEventListener("beforeunload", f) }, [dirty])
   useEffect(() => { setOpen(false) }, [route])
+  // Pastille sur l'icône de l'application (ordinateur) : nombre de demandes à traiter. Sur Android, le lanceur compte les notifications actives.
+  useEffect(() => { const n = navigator as any; if (n.setAppBadge) (newCount > 0 ? n.setAppBadge(newCount) : n.clearAppBadge()).catch(() => {}) }, [newCount])
+  // À l'ouverture de l'application, les notifications déjà vues sont retirées.
+  useEffect(() => {
+    const clear = () => { if (document.visibilityState === "visible" && "serviceWorker" in navigator) navigator.serviceWorker.ready.then((r) => r.getNotifications().then((ns) => ns.forEach((x) => x.close()))).catch(() => {}) }
+    clear(); document.addEventListener("visibilitychange", clear); return () => document.removeEventListener("visibilitychange", clear)
+  }, [])
   const publish = async () => { try { await api("admin.php?a=content_save", { content: clean(c) }); saved.current = JSON.stringify(c); setToast("Publié : les modifications sont en ligne.") } catch (e) { setToast((e as Error).message) } }
   const [sec, key] = route.split("/")
   const isEdit = sec === "c" && key in sections
@@ -85,6 +96,7 @@ function Shell({ user, onLogout }: { user: any; onLogout: () => void }) {
         <header className="sticky top-0 z-20 flex h-16 items-center gap-3 border-b bg-card/95 px-4 backdrop-blur sm:px-6">
           <button className="rounded-lg p-2 hover:bg-muted lg:hidden" aria-label="Ouvrir le menu" onClick={() => setOpen(true)}><Menu className="h-5 w-5" /></button>
           <h1 className="min-w-0 flex-1 truncate text-lg sm:text-xl">{title}</h1>
+          {isEdit && <div role="group" aria-label="Langue du contenu" className="hidden overflow-hidden rounded-lg border text-sm font-semibold sm:flex">{(["fr", "en"] as const).map((l) => <button key={l} onClick={() => setLang(l)} aria-pressed={lang === l} className={`px-3 py-2 ${lang === l ? "bg-primary text-primary-foreground" : "hover:bg-muted"}`}>{l === "fr" ? "Français" : "English"}</button>)}</div>}
           {isEdit && <div className="flex items-center gap-2">
             {dirty && <Button variant="outline" className="h-10 px-3" onClick={() => setC(JSON.parse(saved.current))} aria-label="Annuler les modifications"><Undo2 className="h-4 w-4" /><span className="hidden sm:inline">Annuler</span></Button>}
             <Button variant="accent" className="h-10" disabled={!dirty} onClick={publish}><Save className="h-4 w-4" /><span className="hidden sm:inline">Publier</span>{dirty && <span className="h-2 w-2 rounded-full bg-amber-300" aria-label="Modifications non publiées" />}</Button></div>}
@@ -98,7 +110,7 @@ function Shell({ user, onLogout }: { user: any; onLogout: () => void }) {
         <main className="mx-auto w-full max-w-6xl flex-1 p-4 sm:p-6">
           {route === "" && <Dashboard />}
           {sec === "demandes" && <Requests onChange={poll} />}
-          {isEdit && (c ? <Editor k={key} c={c} setC={setC} /> : <p className="text-muted-foreground">Chargement…</p>)}
+          {isEdit && (tree ? <>{lang === "en" && <p className="mb-4 rounded-xl border border-accent/40 bg-accent/10 p-3 text-sm">Vous modifiez la <strong>version anglaise</strong>, affichée aux visiteurs qui choisissent English. Les réglages et les réseaux sociaux restent communs.</p>}<Editor k={key} c={tree} setC={setTree} lang={lang} /></> : <p className="text-muted-foreground">Chargement…</p>)}
           {sec === "medias" && <Media />}
           {sec === "parametres" && <Settings user={user} onLogout={onLogout} install={prompt ? () => { prompt.prompt(); setPrompt(null) } : null} restored={() => { loadContent(); setToast("Version restaurée et publiée.") }} />}
           {route !== "" && !["demandes", "medias", "parametres"].includes(sec) && !isEdit && <p>Page introuvable. <a className="font-semibold text-accent" href="#/">Retour au tableau de bord</a></p>}

@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react"
 import defaultsFr from "@/data/content.json"
-import defaultsEn from "@/data/content.en.json"
-import { Content } from "@/lib/content"
+import { Content, content as liveFr, contentEn as liveEn } from "@/lib/content"
 
 export type Lang = "fr" | "en"
 
@@ -157,7 +156,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     return uiTranslations[lang]?.[key] ?? uiTranslations.fr[key] ?? key
   }
 
-  const content = (lang === "en" ? defaultsEn : defaultsFr) as unknown as Content
+  const content = (lang === "en" ? liveEn : liveFr) as unknown as Content
 
   return (
     <I18nContext.Provider value={{ lang, setLang, t, content }}>

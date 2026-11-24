@@ -96,21 +96,32 @@ function vapid_jwt(string $aud): array {
   openssl_sign("$h.$p", $sig, $v['key'], OPENSSL_ALGO_SHA256);
   return ["$h.$p." . b64u(der_to_raw($sig)), $v['public']];
 }
-function push_one(string $endpoint): int {
-  $u = parse_url($endpoint); if (!$u || empty($u['host'])) return 0;
+function ensure_schema(): void {
+  static $done = false;
+  if ($done) return;
+  $done = true;
+  if (setting('schema') === '2') return;
+  try { db()->exec('ALTER TABLE push_subs ADD COLUMN ua VARCHAR(255)'); } catch (Throwable $e) { /* colonne déjà présente */ }
+  set_setting('schema', '2');
+}
+function push_one(string $endpoint): array {
+  $u = parse_url($endpoint); if (!$u || empty($u['host'])) return [0, ''];
   [$jwt, $pub] = vapid_jwt(($u['scheme'] ?? 'https') . '://' . $u['host'] . (isset($u['port']) ? ':' . $u['port'] : ''));
   $ch = curl_init($endpoint);
   curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_POSTFIELDS => '', CURLOPT_RETURNTRANSFER => true, CURLOPT_TIMEOUT => 8,
     CURLOPT_HTTPHEADER => ["Authorization: vapid t=$jwt, k=$pub", 'TTL: 86400', 'Urgency: high', 'Content-Length: 0']]);
-  curl_exec($ch); $c = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE); curl_close($ch);
-  return $c;
+  $b = curl_exec($ch); $c = (int)curl_getinfo($ch, CURLINFO_HTTP_CODE); curl_close($ch);
+  return [$c, is_string($b) ? mb_substr(trim($b), 0, 160) : ''];
 }
-function push_all(): int {
-  $ok = 0;
-  foreach (db()->query('SELECT id, endpoint FROM push_subs')->fetchAll() as $s) {
-    $c = push_one($s['endpoint']);
-    if ($c >= 200 && $c < 300) $ok++;
-    elseif ($c === 404 || $c === 410) db()->prepare('DELETE FROM push_subs WHERE id=?')->execute([$s['id']]);
+// Envoie une notification à chaque appareil abonné et renvoie le détail (code du service de notification) pour le diagnostic.
+function push_results(): array {
+  ensure_schema();
+  $out = [];
+  foreach (db()->query('SELECT id, endpoint, ua, created_at FROM push_subs ORDER BY id')->fetchAll() as $s) {
+    [$c, $b] = push_one($s['endpoint']);
+    if ($c === 404 || $c === 410) db()->prepare('DELETE FROM push_subs WHERE id=?')->execute([$s['id']]);
+    $out[] = ['id' => (int)$s['id'], 'host' => parse_url($s['endpoint'], PHP_URL_HOST), 'ua' => (string)($s['ua'] ?? ''), 'created' => $s['created_at'], 'code' => $c, 'ok' => $c >= 200 && $c < 300, 'detail' => $b];
   }
-  return $ok;
+  return $out;
 }
+function push_all(): int { return count(array_filter(push_results(), fn($r) => $r['ok'])); }

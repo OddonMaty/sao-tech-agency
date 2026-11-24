@@ -4,24 +4,33 @@
   "whatsapp": "243907261113",
   "address": "Uvira, Sud-Kivu, RDC",
   "mapQuery": "Uvira, Sud-Kivu, RDC",
-  "email": "contact@saotechagency.com"
+  "email": "contact@saotechagency.com",
+  "whatsappFloat": "oui"
  },
  "socials": [
   {
    "nom": "Facebook",
-   "url": "https://web.facebook.com/saotechagency/"
+   "url": "https://web.facebook.com/saotechagency/",
+   "icone": "",
+   "logo": ""
   },
   {
    "nom": "Instagram",
-   "url": "https://www.instagram.com/sta_sarl"
+   "url": "https://www.instagram.com/sta_sarl",
+   "icone": "",
+   "logo": ""
   },
   {
    "nom": "LinkedIn",
-   "url": "https://www.linkedin.com/company/102640541/"
+   "url": "https://www.linkedin.com/company/102640541/",
+   "icone": "",
+   "logo": ""
   },
   {
    "nom": "TikTok",
-   "url": "https://www.tiktok.com/@sta_sarl"
+   "url": "https://www.tiktok.com/@sta_sarl",
+   "icone": "",
+   "logo": ""
   }
  ],
  "slides": [
@@ -423,19 +432,22 @@
    "nom": "IFFA RDC",
    "desc": "ONG de Bukavu · formation des femmes et environnement",
    "livre": "Site web",
-   "logo": "/partners/iffa.webp"
+   "logo": "/partners/iffa.webp",
+   "url": ""
   },
   {
    "nom": "Elite Building & Development",
    "desc": "Entreprise de construction",
    "livre": "Site web",
-   "logo": "/partners/ebd.webp"
+   "logo": "/partners/ebd.webp",
+   "url": ""
   },
   {
    "nom": "Mwinda Global",
    "desc": "Groupe actif dans les 26 provinces de la RDC",
    "livre": "Marketing, outils logistiques et application mobile",
-   "logo": "/partners/mwinda.webp"
+   "logo": "/partners/mwinda.webp",
+   "url": ""
   }
  ],
  "apropos": {
@@ -622,7 +634,8 @@
     "Factures et devis en PDF",
     "Suivi des paiements",
     "Clients et produits enregistrés"
-   ]
+   ],
+   "url": ""
   },
   {
    "nom": "Gestion de clients",
@@ -633,7 +646,8 @@
     "Fiches clients",
     "Rappels et suivi",
     "Historique des échanges"
-   ]
+   ],
+   "url": ""
   },
   {
    "nom": "Gestion de stock",
@@ -644,7 +658,8 @@
     "Entrées et sorties",
     "Alertes de stock bas",
     "Rapports simples"
-   ]
+   ],
+   "url": ""
   },
   {
    "nom": "Formation en ligne",
@@ -655,7 +670,8 @@
     "Cours en ligne",
     "Suivi des apprenants",
     "Accessible sur mobile"
-   ]
+   ],
+   "url": ""
   }
  ],
  "blog": {

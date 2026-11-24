@@ -3,6 +3,8 @@ import { Menu, X, MessageCircle, Phone, Mail, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Social from "@/components/Social"
 import CookieBanner from "@/components/CookieBanner"
+import Newsletter from "@/components/Newsletter"
+import WhatsAppFloat from "@/components/WhatsAppFloat"
 import LanguageSelector from "@/components/LanguageSelector"
 import { wa } from "@/data/site"
 import { useI18n } from "@/lib/i18n"
@@ -65,6 +67,7 @@ export default function Layout({ path, children }: { path: string; children: Rea
             {s.email && <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-brandlight" /><a href={`mailto:${s.email}`} className="hover:text-primary-foreground">{s.email}</a></li>}
           </ul>
           <div className="mt-8 flex justify-center"><Social className="bg-primary-foreground/10 text-primary-foreground hover:bg-accent" /></div>
+          <Newsletter />
         </div>
         <div className="border-t border-primary-foreground/15">
           <div className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-2 px-5 py-5 text-center text-xs text-primary-foreground/70 md:flex-row md:gap-6">
@@ -80,6 +83,7 @@ export default function Layout({ path, children }: { path: string; children: Rea
         </div>
       </footer>
       <CookieBanner />
+      <WhatsAppFloat />
     </div>
   )
 }

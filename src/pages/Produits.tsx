@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Boxes, FileText, GraduationCap, Users, Check, Mail, User } from "lucide-react"
+import { Boxes, FileText, GraduationCap, Users, Check, Mail, User, ArrowUpRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input, Select, Textarea } from "@/components/ui/input"
 import PageHero from "@/components/PageHero"
@@ -44,6 +44,7 @@ export default function Produits() {
                 <p className="mt-1 font-semibold text-primary">{p.tagline}</p>
                 <p className="mt-3 text-muted-foreground">{p.desc}</p>
                 <ul className="mt-4 space-y-2 text-sm">{p.features.map((x) => <li key={x} className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />{x}</li>)}</ul>
+                {p.url && <a href={p.url} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-accent after:absolute after:inset-0 hover:gap-2">{lang === "en" ? `Open ${p.nom}` : `Ouvrir ${p.nom}`} <ArrowUpRight className="h-4 w-4" /></a>}
               </article>
             )
           })}

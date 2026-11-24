@@ -177,13 +177,14 @@ function graph(r) {
           description: p.desc,
           applicationCategory: "BusinessApplication",
           operatingSystem: "Web",
-          featureList: p.features
+          featureList: p.features,
+          url: p.url || undefined
         }
       }))
     })
   }
   if (r === "/partenaires") g.push(faqNode(content.partenariat.faq, r), orgList(`${url(r)}#partenaires`, "Partenaires de Sao Tech Agency", content.partenaires))
-  if (r === "/realisations") g.push(orgList(`${url(r)}#clients`, "Clients de Sao Tech Agency", content.realisations.map((x) => ({ nom: x.nom, desc: x.desc, logo: x.logo }))))
+  if (r === "/realisations") g.push(orgList(`${url(r)}#clients`, "Clients de Sao Tech Agency", content.realisations.map((x) => ({ nom: x.nom, desc: x.desc, logo: x.logo, url: x.url }))))
   if (r === "/blog") g.push({ "@type": "Blog", "@id": `${url(r)}#blog`, name: "Blog Sao Tech Agency", url: url(r), inLanguage: "fr", publisher: { "@id": orgId } })
   return { "@context": "https://schema.org", "@graph": g }
 }
@@ -199,8 +200,8 @@ const sections = (arr) => arr.map((x) => `### ${x.titre}\n\n${x.texte}`).join("\
 const mdPages = {
   "/": () => head("/", "Sao Tech Agency — Agence digitale à Uvira (RDC)") + `${content.slides[0].titre} ${content.slides[0].texte}\n\n## Trois pôles\n\n` + content.poles.map((p) => `### ${poleName(p)}\n\n${p.texte}\n\n${list(p.services)}`).join("\n\n") + `\n\n## Tarifs de départ\n\n` + content.poles.map((p) => `### ${p.nom}\n\n${content.offres.filter((o) => o.pole === p.id).slice(0, 3).map((o) => `- ${o.name} : ${o.price} ${o.unit}`).join("\n")}`).join("\n\n") + `\n\nTous les plans : ${url("/offres")}\n\n## Pourquoi nous choisir\n\n${sections(content.pourquoi)}\n\n${contactMd}`,
   "/offres": () => head("/offres", "Offres et tarifs") + [...content.poles.map((p) => ({ id: p.id, t: poleName(p) })), { id: "conseil", t: "Conseil" }].map((g) => `## ${g.t}\n\n${plans(g.id)}`).join("\n\n") + `\n\n## Questions fréquentes\n\n` + content.faq.map((f) => `**${f.q}**\n${f.a}`).join("\n\n") + `\n\n${contactMd}`,
-  "/produits": () => head("/produits", "Produits de productivité (en développement)") + content.produits.map((p) => `## ${p.nom} (${p.statut})\n\n${p.tagline} ${p.desc}\n\n${list(p.features)}`).join("\n\n") + `\n\nListe d'attente : ${url("/produits")}#liste\n`,
-  "/realisations": () => head("/realisations", "Réalisations") + content.realisations.map((x) => `## ${x.nom}\n\n${x.desc}. Réalisé : ${x.livre}.`).join("\n\n") + "\n",
+  "/produits": () => head("/produits", "Produits de productivité (en développement)") + content.produits.map((p) => `## ${p.nom} (${p.statut})\n\n${p.tagline} ${p.desc}\n\n${list(p.features)}${p.url ? `\n\nAccès : ${p.url}` : ""}`).join("\n\n") + `\n\nListe d'attente : ${url("/produits")}#liste\n`,
+  "/realisations": () => head("/realisations", "Réalisations") + content.realisations.map((x) => `## ${x.nom}\n\n${x.desc}. Réalisé : ${x.livre}.${x.url ? ` Projet en ligne : ${x.url}` : ""}`).join("\n\n") + "\n",
   "/partenaires": () => head("/partenaires", "Partenariats") + `${content.partenariat.intro}\n\n## Avantages\n\n${sections(content.partenariat.avantages)}\n\n## Formes de partenariat\n\n${sections(content.partenariat.types)}\n\n## Nos partenaires\n\n${list(content.partenaires.map((p) => `${p.nom}${p.desc ? ` — ${p.desc}` : ""}`))}\n\n## Questions fréquentes\n\n` + content.partenariat.faq.map((f) => `**${f.q}**\n${f.a}`).join("\n\n") + `\n\nDemande de partenariat : ${url("/partenaires")}#demande\n`,
   "/blog": () => head("/blog", "Blog") + `Le blog arrive bientôt. Thèmes prévus :\n\n${content.blog.topics.map((t) => `- **${t.titre}** : ${t.texte}`).join("\n")}\n`,
   "/a-propos": () => head("/a-propos", "À propos de Sao Tech Agency") + `${content.apropos.intro}\n\n## Mission, vision, objectif\n\n${sections(content.apropos.blocs.map((b) => ({ titre: b.titre, texte: b.texte })))}\n\n## Nos principes\n\n${sections(content.apropos.principes)}\n\n## Qui nous accompagnons\n\n${sections(content.apropos.publics)}\n`,

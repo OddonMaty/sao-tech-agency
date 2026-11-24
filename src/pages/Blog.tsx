@@ -40,7 +40,7 @@ export default function Blog() {
       <section id="abonnement" className="scroll-mt-20 bg-muted">
         <div className="mx-auto max-w-xl px-5 py-20">
           <h2 className="text-center text-3xl md:text-4xl">{lang === "en" ? "Be Notified on Launch" : "Soyez prévenu du premier article"}</h2>
-          <form className="relative mt-8 grid gap-4 rounded-2xl bg-card p-6 shadow-xl" onSubmit={(e) => { e.preventDefault(); send({ type: "contact", name: f.name, email: f.email, website: f.website, subject: "Abonnement blog", message: "Je souhaite être prévenu des nouveaux articles du blog." }) }}>
+          <form className="relative mt-8 grid gap-4 rounded-2xl bg-card p-6 shadow-xl" onSubmit={(e) => { e.preventDefault(); send({ type: "newsletter", name: f.name, email: f.email, website: f.website, subject: "blog", message: "Je souhaite être prévenu des nouveaux articles du blog." }) }}>
             <input aria-hidden tabIndex={-1} autoComplete="off" name="website" value={f.website} onChange={set("website")} className="absolute -left-[9999px]" />
             <Field id="b-name" label={lang === "en" ? "First Name" : "Prénom"} icon={User}><Input id="b-name" required className="h-11 rounded-lg pl-10" value={f.name} onChange={set("name")} /></Field>
             <Field id="b-email" label={lang === "en" ? "Email Address" : "Email"} icon={Mail}><Input id="b-email" type="email" required className="h-11 rounded-lg pl-10" value={f.email} onChange={set("email")} /></Field>
