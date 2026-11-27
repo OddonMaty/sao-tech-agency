@@ -1,0 +1,76 @@
+# Sao Tech Agency — configuration Apache (Hostinger)
+Options -Indexes
+DirectoryIndex index.html index.php
+AddDefaultCharset UTF-8
+
+# Une adresse inexistante renvoie un vrai statut 404 (avec la page 404.html)
+ErrorDocument 404 /404.html
+
+<IfModule mod_mime.c>
+AddType application/manifest+json .webmanifest
+AddType application/javascript .js
+AddType "text/markdown; charset=UTF-8" .md
+AddType text/plain .txt
+</IfModule>
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+# Activez la redirection HTTPS une fois le certificat SSL installé (retirez les # ci-dessous)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Images téléversées depuis l'admin (stockées en base de données)
+RewriteRule ^media/([0-9]+\.(jpg|png|webp|gif))$ /api/media.php?f=$1 [L]
+
+# Adresses courantes en anglais servies directement ou redirigées
+RewriteRule ^about/?$ /a-propos.html [L]
+RewriteRule ^terms/?$ /conditions.html [L]
+RewriteRule ^privacy/?$ /confidentialite.html [L]
+RewriteRule ^legal/?$ /conditions.html [L]
+RewriteRule ^services/?$ /offres.html [L]
+RewriteRule ^pricing/?$ /offres.html [L]
+RewriteRule ^portfolio/?$ /realisations.html [L]
+RewriteRule ^partners/?$ /partenaires.html [L]
+
+# Version Markdown servie à la demande (en-tête Accept: text/markdown)
+RewriteCond %{HTTP:Accept} text/markdown [NC]
+RewriteRule ^$ /index.md [L]
+RewriteCond %{HTTP:Accept} text/markdown [NC]
+RewriteCond %{DOCUMENT_ROOT}/$1.md -f
+RewriteRule ^([a-z0-9-]+)/?$ /$1.md [L]
+
+# URL propres : /offres sert /offres.html (pages générées pour le référencement)
+RewriteCond %{REQUEST_URI} !^/(api|admin|uploads|live)/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([^/]+)/?$ $1.html [L]
+</IfModule>
+
+<IfModule mod_headers.c>
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+<FilesMatch "\.(html|md)$">
+  Header set Cache-Control "no-cache"
+  Header merge Vary Accept
+</FilesMatch>
+<FilesMatch "\.(js|css|woff2|webp|png|jpg|jpeg|svg|ico)$">
+  Header set Cache-Control "public, max-age=2592000"
+</FilesMatch>
+<FilesMatch "^(sw\.js|manifest\.webmanifest)$">
+  Header set Cache-Control "no-cache"
+</FilesMatch>
+<FilesMatch "^assets/.*">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+# Annonce des ressources institutionnelles et lisibles par les agents (RFC 8288)
+<Files "index.html">
+  Header set Link '</index.md>; rel="alternate"; type="text/markdown", </llms.txt>; rel="describedby"; type="text/plain", </sitemap.xml>; rel="sitemap", </a-propos>; rel="about", </contact>; rel="help", </conditions>; rel="terms-of-service", </confidentialite>; rel="privacy-policy"'
+</Files>
+</IfModule>
+
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/css text/markdown text/plain application/javascript application/json image/svg+xml application/manifest+json
+</IfModule>
