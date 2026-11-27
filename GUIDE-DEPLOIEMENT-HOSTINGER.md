@@ -34,12 +34,11 @@ Si vous utilisez un autre domaine que `saotechagency.com`, modifiez d'abord la l
    - `no-reply@saotechagency.com` : adresse d'expédition des notifications.
    Si vous utilisez d'autres adresses, reportez-les à l'étape 5.
 
-## Étape 3 — Envoyer les fichiers
+## Étape 3 — Déployer le site (depuis GitHub)
 
-1. *Fichiers → Gestionnaire de fichiers*, ouvrez `public_html`. Supprimez le fichier par défaut de Hostinger (`default.php`) s'il existe.
-2. Cliquez sur *Téléverser*, envoyez votre `.zip`, puis clic droit → *Extraire* directement dans `public_html`.
-3. Activez *Afficher les fichiers cachés* (roue dentée en haut à droite) et vérifiez que **`.htaccess`** est bien présent dans `public_html`. Sans lui, les adresses comme `/offres` donneront une erreur 404.
-4. Vous devez voir : `index.html`, `offres.html`, `assets/`, `admin/`, `api/`, `img/`, `sitemap.xml`, `robots.txt`, `.htaccess`.
+Le site est déployé automatiquement depuis la branche `main` du dépôt GitHub (menu *Sites web → Importer un projet GitHub* de hPanel). Chaque envoi sur `main` déclenche une nouvelle compilation sur Hostinger.
+
+> **À retenir :** Hostinger **remplace tout le contenu de `public_html` à chaque déploiement**. Tout fichier qui n'est pas dans le dépôt y est supprimé. C'est pourquoi la configuration est placée **hors de `public_html`** (étape 5) et que le contenu publié et les images sont stockés **dans la base de données**.
 
 ## Étape 4 — Créer l'accès Google (connexion par Gmail)
 
@@ -51,31 +50,39 @@ Si vous utilisez un autre domaine que `saotechagency.com`, modifiez d'abord la l
    - `https://www.saotechagency.com` (si vous utilisez le « www »)
 5. Validez et **copiez l'ID client** (il se termine par `.apps.googleusercontent.com`). Aucun secret n'est nécessaire.
 
-## Étape 5 — Renseigner le fichier de configuration
+## Étape 5 — Créer le fichier de configuration (hors de `public_html`)
 
-1. Dans `public_html/api/`, copiez `config.sample.php` et nommez la copie **`config.php`**.
-2. Modifiez-le (clic droit → *Modifier*) :
+1. Dans hPanel, ouvrez **Fichiers → Gestionnaire de fichiers**. Remontez à la **racine de votre compte** (le dossier qui contient `domains`), pas dans `public_html`.
+2. Créez un dossier nommé **`sta-data`** à cette racine.
+3. Dans `sta-data`, créez un fichier nommé exactement **`config.php`** avec ce contenu, en remplaçant les valeurs en majuscules :
 
-| Clé | Valeur |
-|---|---|
-| `db_host` | `localhost` |
-| `db_name`, `db_user`, `db_pass` | Les valeurs notées à l'étape 2 |
-| `site_url` | `https://saotechagency.com` |
-| `google_client_id` | L'ID client de l'étape 4 |
-| `admin_emails` | Vos adresses Gmail autorisées, par exemple `['vous@gmail.com', 'collegue@gmail.com']` |
-| `notify_email` | `contact@saotechagency.com` |
-| `mail_from` | `no-reply@saotechagency.com` |
-| `vapid_subject` | `mailto:contact@saotechagency.com` |
-| `install_token` | Un long texte aléatoire (30 caractères ou plus) |
+```php
+<?php
+return [
+  'db_host' => 'localhost',
+  'db_name' => 'u641852256_NOM_BASE',
+  'db_user' => 'u641852256_UTILISATEUR',
+  'db_pass' => 'MOT_DE_PASSE_BASE',
+  'site_url' => 'https://saotechagency.com',
+  'google_client_id' => 'VOTRE_ID.apps.googleusercontent.com',
+  'admin_emails' => ['votre.gmail@gmail.com'],
+  'notify_email' => 'VOTRE_EMAIL_PRO',
+  'mail_from' => 'VOTRE_EMAIL_PRO',
+  'vapid_subject' => 'mailto:VOTRE_EMAIL_PRO',
+  'install_token' => 'UNE_LONGUE_PHRASE_ALEATOIRE_LETTRES_ET_CHIFFRES',
+];
+```
 
-3. Ne partagez jamais ce fichier. Il n'est pas inclus dans le projet, il n'existe que sur le serveur.
+4. Le serveur cherche ce fichier dans `sta-data/config.php`, puis dans `domains/saotechagency.com/sta-config.php`. Ne le placez jamais dans `public_html` : il serait supprimé au prochain déploiement.
+5. Ne partagez jamais ce fichier. Il n'existe que sur le serveur.
 
 ## Étape 6 — Installer la base de données
 
 1. Ouvrez dans le navigateur : `https://saotechagency.com/api/install.php?token=VOTRE_install_token`
-2. Le message **« Installation terminée »** apparaît. Cette étape crée les 4 tables (`requests`, `push_subs`, `settings`, `content_versions`), génère la clé des notifications et enregistre le contenu initial.
-3. Vérifiez dans *Bases de données → phpMyAdmin* que les tables existent.
-4. **Sécurité :** supprimez maintenant `api/install.php` depuis le gestionnaire de fichiers. Un fichier `api/.installed` empêche déjà de relancer l'installation.
+2. Le message **« Installation terminée »** apparaît. Cette étape crée les tables (demandes, notifications, contenu, images), génère la clé des notifications et enregistre le contenu initial.
+3. Vérifiez dans **phpMyAdmin** que les tables `requests`, `push_subs`, `settings`, `content_versions` et `media` existent.
+4. **Ne supprimez pas `install.php`** : il est remis à chaque déploiement. Il reste protégé par votre jeton et par le verrou `sta-data/.installed`.
+5. Une installation déjà faite n'est pas à refaire : si la base existe déjà, il suffit de recréer `sta-data/config.php` avec les mêmes identifiants.
 
 ## Étape 7 — Première connexion et notifications
 
@@ -100,15 +107,15 @@ Si vous utilisez un autre domaine que `saotechagency.com`, modifiez d'abord la l
 
 ## Gérer le site au quotidien
 
-- **Modifier le contenu** (textes, offres, FAQ, carrousel, partenaires, produits, réseaux, images) : tout se fait dans `/admin/`, section *Contenu du site*, puis bouton **Publier**. La modification est visible immédiatement, sans redéploiement.
+- **Modifier le contenu** (textes, offres, FAQ, carrousel, partenaires, produits, réseaux, liens, images) : tout se fait dans `/admin/`, section *Contenu du site*, puis bouton **Publier**. Le contenu est enregistré dans la base de données : la modification est visible immédiatement et survit aux déploiements.
 - **Historique** : *Notifications et compte* conserve les 30 dernières publications et permet de restaurer une version.
-- **Modifier le code ou le design** : changez les sources, lancez `npm run build`, puis renvoyez le contenu de `dist/` dans `public_html` en écrasant les fichiers. Vos données sont conservées, car `api/config.php`, `uploads/` et `live/` n'existent pas dans `dist/`.
+- **Modifier le code ou le design** : envoyez les modifications sur la branche `main` de GitHub ; Hostinger recompile et redéploie tout seul. Vos données (base, configuration `sta-data`, images) ne sont pas touchées.
 
 ## Sauvegardes
 
 - *Fichiers → Sauvegardes* (hPanel) : activez les sauvegardes automatiques.
 - Exportez régulièrement la base : phpMyAdmin → *Exporter*.
-- Copiez de temps en temps les dossiers `uploads/` (vos images) et `live/` (le contenu publié).
+- Vos images et le contenu publié sont dans la base de données : l'export phpMyAdmin les contient. Gardez aussi une copie de `sta-data/config.php` dans un gestionnaire de mots de passe.
 
 ## Dépannage
 
@@ -116,13 +123,13 @@ Si vous utilisez un autre domaine que `saotechagency.com`, modifiez d'abord la l
 |---|---|
 | `/offres` renvoie une erreur 404 | `.htaccess` absent : activez les fichiers cachés et renvoyez-le |
 | Page blanche sur le site | Videz le cache du navigateur ; vérifiez que `assets/` est complet |
-| « config.php manquant » | L'étape 5 n'est pas faite, ou le fichier n'est pas dans `api/` |
+| « config.php manquant » | `sta-data/config.php` absent ou mal placé (étape 5). Il doit être à la racine du compte, pas dans `public_html` |
 | Erreur 500 sur `/api/` | PHP inférieur à 8.1, ou extension manquante (étape 2) |
 | Google : `origin_mismatch` | L'adresse du site n'est pas dans les *Origines JavaScript autorisées* (étape 4) |
 | « Ce compte Google n'est pas autorisé » | Ajoutez l'adresse dans `admin_emails` |
 | Bouton Google absent | Bloqueur de publicité, ou ID client incorrect dans `config.php` |
 | Pas de notification | Notifications bloquées dans le navigateur ; sur iPhone, installez d'abord l'application |
-| Envoi d'image refusé | Image de plus de 5 Mo ou format non pris en charge ; vérifiez les droits du dossier `uploads/` (755) |
+| Envoi d'image refusé | Image de plus de 5 Mo ou format non pris en charge ; les images sont enregistrées en base de données (aucun droit de dossier à régler) |
 | Emails reçus en spam | Utilisez des adresses du domaine (étape 2) et gardez les DNS chez Hostinger (SPF et DKIM automatiques) |
 
 ## Aperçu local (sans serveur)

@@ -1,5 +1,7 @@
 <?php
-// Copiez ce fichier en « config.php » sur le serveur (ne le mettez jamais dans Git) puis remplissez les valeurs.
+// IMPORTANT : Hostinger remplace tout public_html à chaque déploiement. Placez la configuration HORS de public_html :
+// copiez ce fichier en /home/<votre compte>/sta-data/config.php (créez le dossier « sta-data »), puis remplissez les valeurs.
+// Ne le mettez jamais dans Git.
 return [
   'db_host' => 'localhost',
   'db_name' => 'u123456789_sta',

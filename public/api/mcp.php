@@ -16,10 +16,12 @@ function jout($data, int $code = 200): never {
 }
 function rpc_error($id, int $code, string $msg): array { return ['jsonrpc' => '2.0', 'id' => $id, 'error' => ['code' => $code, 'message' => $msg]]; }
 function site_content(): array {
-  $root = dirname(__DIR__);
-  foreach (['/live/content.json', '/data/content.default.json'] as $f) {
-    if (is_file($root . $f)) { $j = json_decode((string)file_get_contents($root . $f), true); if (is_array($j)) return $j; }
-  }
+  try {
+    require_once __DIR__ . '/lib.php';
+    if (config_path()) { $j = json_decode((string)live_content(), true); if (is_array($j)) return $j; }
+  } catch (Throwable $e) { /* contenu livré avec le site */ }
+  $f = dirname(__DIR__) . '/data/content.default.json';
+  if (is_file($f)) { $j = json_decode((string)file_get_contents($f), true); if (is_array($j)) return $j; }
   return [];
 }
 function tools(): array {

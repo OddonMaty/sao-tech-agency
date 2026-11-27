@@ -2,6 +2,7 @@
 declare(strict_types=1);
 require_once __DIR__ . '/lib.php';
 $me = admin();
+ensure_schema();
 $a = $_GET['a'] ?? '';
 $B = base_dir();
 $writes = ['request_update', 'request_delete', 'content_save', 'content_restore', 'upload', 'media_delete', 'push_subscribe', 'push_unsubscribe', 'push_test', 'push_remove'];
@@ -12,9 +13,6 @@ function publish_content(string $json, string $email): void {
   if (!is_array($d) || !isset($d['settings'], $d['slides'], $d['poles'], $d['offres']) || strlen($json) > 2000000) out(['error' => 'Contenu invalide'], 422);
   db()->prepare('INSERT INTO content_versions (body,email,created_at) VALUES (?,?,?)')->execute([$json, $email, date('Y-m-d H:i:s')]);
   db()->exec('DELETE FROM content_versions WHERE id NOT IN (SELECT id FROM (SELECT id FROM content_versions ORDER BY id DESC LIMIT 30) t)');
-  @mkdir(base_dir() . '/live', 0755, true);
-  $tmp = base_dir() . '/live/content.json.tmp';
-  file_put_contents($tmp, $json); rename($tmp, base_dir() . '/live/content.json');
 }
 
 switch ($a) {
@@ -39,8 +37,8 @@ switch ($a) {
   case 'request_delete':
     db()->prepare('DELETE FROM requests WHERE id=?')->execute([(int)(body()['id'] ?? 0)]); out(['ok' => true]);
   case 'content_get':
-    $f = $B . '/live/content.json'; $s = db()->query('SELECT body FROM content_versions ORDER BY id DESC LIMIT 1')->fetchColumn();
-    out(['content' => json_decode($s !== false ? (string)$s : (is_file($f) ? (string)file_get_contents($f) : '{}'), true)]);
+    $s = live_content(); $f = $B . '/data/content.default.json';
+    out(['content' => json_decode($s ?? (is_file($f) ? (string)file_get_contents($f) : '{}'), true)]);
   case 'content_save':
     publish_content(json_encode(body()['content'] ?? null, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), $me['email']); out(['ok' => true]);
   case 'content_history':
@@ -52,20 +50,18 @@ switch ($a) {
   case 'upload':
     $f = $_FILES['file'] ?? null;
     if (!$f || $f['error'] !== UPLOAD_ERR_OK || $f['size'] > 5 * 1024 * 1024) out(['error' => 'Image invalide ou trop lourde (5 Mo max).'], 422);
-    $i = @getimagesize($f['tmp_name']); $ext = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/gif' => 'gif'][$i['mime'] ?? ''] ?? null;
+    $i = @getimagesize($f['tmp_name']); $mime = $i['mime'] ?? ''; $ext = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp', 'image/gif' => 'gif'][$mime] ?? null;
     if (!$ext) out(['error' => 'Formats acceptés : JPG, PNG, WebP, GIF.'], 422);
-    $dir = $B . '/uploads/' . date('Y/m'); if (!is_dir($dir)) mkdir($dir, 0755, true);
-    $name = bin2hex(random_bytes(8)) . '.' . $ext;
-    if (!move_uploaded_file($f['tmp_name'], "$dir/$name") && !rename($f['tmp_name'], "$dir/$name")) out(['error' => 'Échec de l\'enregistrement'], 500);
-    out(['url' => '/uploads/' . date('Y/m') . "/$name"]);
+    $st = db()->prepare('INSERT INTO media (name,mime,ext,size,data,created_at) VALUES (?,?,?,?,?,?)');
+    $st->bindValue(1, mb_substr(basename((string)$f['name']), 0, 190)); $st->bindValue(2, $mime); $st->bindValue(3, $ext); $st->bindValue(4, (int)$f['size'], PDO::PARAM_INT);
+    $st->bindValue(5, (string)file_get_contents($f['tmp_name']), PDO::PARAM_LOB); $st->bindValue(6, date('Y-m-d H:i:s'));
+    $st->execute();
+    out(['url' => '/media/' . (int)db()->lastInsertId() . '.' . $ext]);
   case 'media_list':
-    $it = [];
-    foreach (glob($B . '/uploads/*/*/*.*') ?: [] as $p) $it[] = ['url' => substr($p, strlen($B)), 'size' => filesize($p), 'time' => filemtime($p)];
-    usort($it, fn($x, $y) => $y['time'] <=> $x['time']); out(['items' => $it]);
+    out(['items' => array_map(fn($r) => ['url' => '/media/' . $r['id'] . '.' . $r['ext'], 'size' => (int)$r['size'], 'time' => strtotime((string)$r['created_at']) ?: 0], db()->query('SELECT id, ext, size, created_at FROM media ORDER BY id DESC LIMIT 500')->fetchAll())]);
   case 'media_delete':
-    $u = (string)(body()['url'] ?? ''); $p = realpath($B . $u);
-    if (!$p || !str_starts_with($p, realpath($B . '/uploads') . DIRECTORY_SEPARATOR) || !is_file($p)) out(['error' => 'fichier introuvable'], 404);
-    unlink($p); out(['ok' => true]);
+    if (!preg_match('#^/media/(\d+)\.[a-z]+$#', (string)(body()['url'] ?? ''), $m)) out(['error' => 'fichier introuvable'], 404);
+    db()->prepare('DELETE FROM media WHERE id=?')->execute([(int)$m[1]]); out(['ok' => true]);
   case 'push_key': out(['key' => vapid()['public']]);
   case 'push_subscribe':
     $e = (string)(body()['subscription']['endpoint'] ?? '');

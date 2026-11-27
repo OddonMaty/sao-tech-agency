@@ -3,7 +3,7 @@ import defaultsEn from "@/data/content.en.json"
 export type Content = typeof defaults
 export { defaults, defaultsEn }
 
-// Contenu publié depuis l'admin : lu dans /live/content.json ; à défaut, le contenu livré avec le site.
+// Contenu publié depuis l'admin : lu dans /api/content.php (base de données) ; à défaut, le contenu livré avec le site.
 // Version française = contenu publié ; version anglaise = contenu publié sous la clé « en » (sinon contenu anglais livré).
 // Réglages et réseaux sociaux sont communs aux deux langues.
 export let content: Content = defaults
@@ -47,7 +47,7 @@ function buildEn(live: Record<string, unknown>): Content {
 export async function loadContent(): Promise<void> {
   try {
     const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 2500)
-    const r = await fetch(`/live/content.json?v=${Math.floor(Date.now() / 60000)}`, { signal: ctl.signal, cache: "no-cache" })
+    const r = await fetch(`/api/content.php?v=${Math.floor(Date.now() / 60000)}`, { signal: ctl.signal, cache: "no-cache" })
     clearTimeout(t)
     if (r.ok && (r.headers.get("content-type") || "").includes("json")) {
       const live = await r.json()

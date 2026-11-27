@@ -2,11 +2,20 @@
 declare(strict_types=1);
 // Fonctions communes de l'API Sao Tech Agency (PHP 8.1+, MySQL).
 
+// Dossier de données HORS de la zone déployée (public_html est remplacé à chaque déploiement Git) :
+// /home/<compte>/sta-data/ contient config.php et le verrou d'installation.
+function data_dir(): string { return getenv('STA_DATA') ?: dirname(base_dir(), 3) . '/sta-data'; }
+function config_path(): ?string {
+  foreach ([getenv('STA_CONFIG') ?: '', data_dir() . '/config.php', dirname(base_dir()) . '/sta-config.php', __DIR__ . '/config.php'] as $f) {
+    if ($f !== '' && is_file($f)) return $f;
+  }
+  return null;
+}
 function cfg(): array {
   static $c = null;
   if ($c === null) {
-    $f = getenv('STA_CONFIG') ?: __DIR__ . '/config.php';
-    if (!is_file($f)) out(['error' => 'config.php manquant sur le serveur'], 500);
+    $f = config_path();
+    if (!$f) out(['error' => 'config.php manquant sur le serveur'], 500);
     $c = require $f;
   }
   return $c;
@@ -100,9 +109,19 @@ function ensure_schema(): void {
   static $done = false;
   if ($done) return;
   $done = true;
-  if (setting('schema') === '2') return;
+  if (setting('schema') === '3') return;
   try { db()->exec('ALTER TABLE push_subs ADD COLUMN ua VARCHAR(255)'); } catch (Throwable $e) { /* colonne déjà présente */ }
-  set_setting('schema', '2');
+  $sq = is_sqlite();
+  $ai = $sq ? 'INTEGER PRIMARY KEY AUTOINCREMENT' : 'INT AUTO_INCREMENT PRIMARY KEY';
+  $blob = $sq ? 'BLOB' : 'LONGBLOB';
+  $en = $sq ? '' : ' ENGINE=InnoDB DEFAULT CHARSET=utf8mb4';
+  db()->exec("CREATE TABLE IF NOT EXISTS media (id $ai, name VARCHAR(190), mime VARCHAR(60) NOT NULL, ext VARCHAR(8) NOT NULL, size INT NOT NULL, data $blob NOT NULL, created_at DATETIME NOT NULL)$en");
+  set_setting('schema', '3');
+}
+// Dernier contenu publié depuis l'admin (la base de données est la source de vérité, rien n'est écrit dans public_html).
+function live_content(): ?string {
+  $r = db()->query('SELECT body FROM content_versions ORDER BY id DESC LIMIT 1')->fetchColumn();
+  return $r === false ? null : (string)$r;
 }
 function push_one(string $endpoint): array {
   $u = parse_url($endpoint); if (!$u || empty($u['host'])) return [0, ''];

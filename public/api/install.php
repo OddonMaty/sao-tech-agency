@@ -2,8 +2,8 @@
 declare(strict_types=1);
 require_once __DIR__ . '/lib.php';
 header('Content-Type: text/html; charset=utf-8');
-$lock = __DIR__ . '/.installed';
-if (is_file($lock)) { http_response_code(403); exit('Déjà installé. Supprimez le fichier api/.installed pour relancer l\'installation.'); }
+$lock = data_dir() . '/.installed';
+if (is_file($lock)) { http_response_code(403); exit('Déjà installé. Supprimez le fichier sta-data/.installed pour relancer l\'installation.'); }
 if (!hash_equals((string)(cfg()['install_token'] ?? ''), (string)($_GET['token'] ?? '')) || ($_GET['token'] ?? '') === '') { http_response_code(403); exit('Jeton invalide.'); }
 $sq = is_sqlite();
 $ai = $sq ? 'INTEGER PRIMARY KEY AUTOINCREMENT' : 'INT AUTO_INCREMENT PRIMARY KEY';
@@ -16,14 +16,12 @@ $t = [
 ];
 foreach ($t as $q) db()->exec($q);
 vapid(); // génère la clé de notification
+ensure_schema(); // colonne des appareils et table des images
 $def = base_dir() . '/data/content.default.json';
 if (is_file($def)) {
   $json = (string)file_get_contents($def);
   if (!db()->query('SELECT COUNT(*) FROM content_versions')->fetchColumn()) db()->prepare('INSERT INTO content_versions (body,email,created_at) VALUES (?,?,?)')->execute([$json, 'installation', date('Y-m-d H:i:s')]);
-  @mkdir(base_dir() . '/live', 0755, true);
-  if (!is_file(base_dir() . '/live/content.json')) file_put_contents(base_dir() . '/live/content.json', $json);
 }
-@mkdir(base_dir() . '/uploads', 0755, true);
-file_put_contents(base_dir() . '/uploads/.htaccess', "<FilesMatch \"\\.(php|phtml|phar|cgi)\$\">\n  Require all denied\n</FilesMatch>\n");
+@mkdir(data_dir(), 0755, true);
 file_put_contents($lock, date('c'));
-echo '<h1>Installation terminée</h1><p>Tables créées, clé de notification générée, contenu initial enregistré.</p><p>Ouvrez <a href="/admin/">/admin/</a> pour vous connecter avec Google.</p>';
+echo '<h1>Installation terminée</h1><p>Tables créées (demandes, notifications, contenu, images), clé de notification générée, contenu initial enregistré.</p><p>Ouvrez <a href="/admin/">/admin/</a> pour vous connecter avec Google.</p>';

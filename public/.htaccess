@@ -19,6 +19,9 @@ RewriteEngine On
 # RewriteCond %{HTTPS} off
 # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# Images téléversées depuis l'admin (stockées en base de données)
+RewriteRule ^media/([0-9]+\.(jpg|png|webp|gif))$ /api/media.php?f=$1 [L]
+
 # Adresses courantes en anglais servies directement ou redirigées
 RewriteRule ^about/?$ /a-propos.html [L]
 RewriteRule ^terms/?$ /conditions.html [L]

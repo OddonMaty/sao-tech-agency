@@ -16,7 +16,7 @@ function ImgField({ v, onChange }: { v: string; onChange: (s: string) => void })
   return (
     <div className="flex items-center gap-2">
       {v && <img src={v} alt="" className="h-10 w-14 shrink-0 rounded border bg-white object-contain" />}
-      <Input value={v} onChange={(e) => onChange(e.target.value)} placeholder="/uploads/… ou /img/…" />
+      <Input value={v} onChange={(e) => onChange(e.target.value)} placeholder="/media/… ou /img/…" />
       <input ref={ref} type="file" accept="image/*" className="hidden" onChange={async (e) => { const f = e.target.files?.[0]; if (!f) return; try { onChange(await upload(f)) } catch (x) { alert((x as Error).message) } e.target.value = "" }} />
       <Button type="button" variant="outline" className="shrink-0" onClick={() => ref.current?.click()} aria-label="Téléverser une image"><Upload className="h-4 w-4" /></Button>
     </div>
